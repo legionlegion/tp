@@ -494,7 +494,6 @@ As Rapid Tracer is meant to be single-user, the System and Actor for all use cas
     1. System shows an error message.
     - Use case resumes at step 1.
 
-
 *{More to be added}*
 
 ### Non-Functional Requirements
