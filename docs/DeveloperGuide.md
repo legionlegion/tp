@@ -482,6 +482,17 @@ As Rapid Tracer is meant to be single-user, the System and Actor for all use cas
 - 2a. The list is empty.
     - Use case ends.
 
+**Use Case: A05 - Trace an Appointment**
+
+**MSS**
+1. Actor requests trace a specific appointment in the list of appointments currently displayed.
+2. System lists all appointments and their contacts that are overlapping with the specific appointment.
+3. Use case ends.
+
+**Extensions**
+- 1a. The given index is invalid.
+    1. System shows an error message.
+    - Use case resumes at step 1.
 
 *{More to be added}*
 
