@@ -1,12 +1,14 @@
 package seedu.address.logic.commands.appointment;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentTimeOverlapPredicate;
 
 import java.util.List;
 
@@ -21,6 +23,8 @@ public class TraceCommand extends Command {
         + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_TRACE_SUCCESS = "Traced appointment: %1$s";
+
+    private AppointmentTimeOverlapPredicate appointmentTimeOverlapPredicate;
     private final Index targetIndex;
 
     /**
@@ -39,10 +43,32 @@ public class TraceCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
-        Appointment appointmentToDelete = lastShownList.get(targetIndex.getZeroBased());
-        //model.updateFilteredAppointmentList();
+        Appointment appointmentToTrace = lastShownList.get(targetIndex.getZeroBased());
+        this.appointmentTimeOverlapPredicate = new AppointmentTimeOverlapPredicate(appointmentToTrace);
+        model.updateFilteredAppointmentList(appointmentTimeOverlapPredicate);
         //model.updateFilteredPersonList();
         return new CommandResult(String.format(MESSAGE_TRACE_SUCCESS,
-            Messages.formatAppointment(appointmentToDelete)));
+            Messages.formatAppointment(appointmentToTrace)));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof TraceCommand)) {
+            return false;
+        }
+
+        TraceCommand otherTraceCommand = (TraceCommand) other;
+        return targetIndex.equals(otherTraceCommand.targetIndex);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .add("targetIndex", targetIndex)
+            .toString();
     }
 }
