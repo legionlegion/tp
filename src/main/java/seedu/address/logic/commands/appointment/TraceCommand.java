@@ -1,5 +1,9 @@
 package seedu.address.logic.commands.appointment;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -11,10 +15,9 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentTimeOverlapPredicate;
 import seedu.address.model.person.PersonFromAppointmentListPredicate;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Performs contact tracing to a particular appointment for user
+ */
 public class TraceCommand extends Command {
 
     public static final String COMMAND_WORD = "trace";

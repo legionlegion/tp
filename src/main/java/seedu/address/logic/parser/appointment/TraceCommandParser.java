@@ -1,14 +1,22 @@
 package seedu.address.logic.parser.appointment;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.appointment.TraceCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+/**
+ * Parses input arguments and creates a new TraceCommand object
+ */
 public class TraceCommandParser implements Parser<TraceCommand> {
+    /**
+     * Parses the given {@code String} of arguments in the context of the TraceCommand
+     * and returns a TraceCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public TraceCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);

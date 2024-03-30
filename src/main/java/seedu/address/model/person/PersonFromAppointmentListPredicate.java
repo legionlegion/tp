@@ -5,7 +5,9 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 
-
+/**
+ * Tests that a {@code Person}'s {@code UUID} matches any of the appointments given.
+ */
 public class PersonFromAppointmentListPredicate implements Predicate<Person> {
     private final ObservableList<Appointment> appointments;
     public PersonFromAppointmentListPredicate(ObservableList<Appointment> appointments) {
@@ -15,7 +17,7 @@ public class PersonFromAppointmentListPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         for (Appointment a : appointments) {
-            if (a.getPersonId().equals(person.getId())){
+            if (a.getPersonId().equals(person.getId())) {
                 return true;
             }
         }
