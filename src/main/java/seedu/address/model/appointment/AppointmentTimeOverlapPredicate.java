@@ -25,4 +25,3 @@ public class AppointmentTimeOverlapPredicate implements Predicate<Appointment> {
             && appointmentTime.getStartTime().isBefore(targetTime.getEndTime());
     }
 }
-
