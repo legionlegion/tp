@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentTimeOverlapPredicate;
+import seedu.address.model.person.PersonFromAppointmentListPredicate;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class TraceCommand extends Command {
     public static final String MESSAGE_TRACE_SUCCESS = "Traced appointment: %1$s";
 
     private AppointmentTimeOverlapPredicate appointmentTimeOverlapPredicate;
+
+    private PersonFromAppointmentListPredicate personFromAppointmentListPredicate;
     private final Index targetIndex;
 
     /**
@@ -46,7 +49,9 @@ public class TraceCommand extends Command {
         Appointment appointmentToTrace = lastShownList.get(targetIndex.getZeroBased());
         this.appointmentTimeOverlapPredicate = new AppointmentTimeOverlapPredicate(appointmentToTrace);
         model.updateFilteredAppointmentList(appointmentTimeOverlapPredicate);
-        //model.updateFilteredPersonList();
+
+        personFromAppointmentListPredicate = new PersonFromAppointmentListPredicate(model.getFilteredAppointmentList());
+        model.updateFilteredPersonList(personFromAppointmentListPredicate);
         return new CommandResult(String.format(MESSAGE_TRACE_SUCCESS,
             Messages.formatAppointment(appointmentToTrace)));
     }
