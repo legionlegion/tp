@@ -1,4 +1,4 @@
-package seedu.address.model.appointment;
+package seedu.address.logic.commands.appointment;
 
 import static java.util.Objects.requireNonNull;
 
@@ -8,9 +8,9 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.appointment.AppointmentContainsKeywordsPredicate;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.appointment.AppointmentContainsKeywordsPredicate;
 
 /**
  * Finds and lists all appointments whose associated person's name contains any
