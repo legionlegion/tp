@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
@@ -18,18 +20,48 @@
       <padding>
         <Insets top="5" right="5" bottom="5" left="15" />
       </padding>
+      <Label fx:id="id" styleClass="cell_big_label" alignment="TOP_LEFT">
+        <minWidth>
+          <!-- Ensures that the label text is never truncated -->
+          <Region fx:constant="USE_PREF_SIZE" />
+        </minWidth>
+      </Label>
+      <!-- Name Label and Icon -->
       <HBox spacing="5" alignment="CENTER_LEFT">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+          <image>
+            <Image url="@../../images/patient.png"/>
+          </image>
+        </ImageView>
+        <Label fx:id="name" text="$first" styleClass="cell_big_label" />
       </HBox>
-      <FlowPane fx:id="tags" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+      <!-- Tags FlowPane and Icon -->
+      <HBox fx:id="tagsIcon" spacing="5" alignment="CENTER_LEFT">
+        <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+          <image>
+            <Image url="@../../images/tag.png"/>
+          </image>
+        </ImageView>
+        <FlowPane fx:id="tags" />
+      </HBox>
+      <!-- Phone Label and Icon -->
+      <HBox spacing="5" alignment="CENTER_LEFT">
+        <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+          <image>
+            <Image url="@../../images/phone.png"/>
+          </image>
+        </ImageView>
+        <Label fx:id="phone" styleClass="cell_small_label" text="$phone" />
+      </HBox>
+      <!-- Address Label and Icon -->
+      <HBox spacing="5" alignment="CENTER_LEFT">
+        <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+          <image>
+            <Image url="@../../images/address.png"/>
+          </image>
+        </ImageView>
+        <Label fx:id="address" styleClass="cell_small_label" text="$address" />
+      </HBox>
     </VBox>
   </GridPane>
 </HBox>
