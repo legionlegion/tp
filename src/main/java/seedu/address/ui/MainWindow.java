@@ -84,6 +84,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -117,10 +118,10 @@ public class MainWindow extends UiPart<Stage> {
      * This is the meat of the UI.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), this);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        appointmentListPanel = new AppointmentListPanel(logic, logic.getFilteredAppointmentList());
+        appointmentListPanel = new AppointmentListPanel(logic, logic.getFilteredAppointmentList(), this);
         appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -182,7 +183,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    public CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -201,6 +202,22 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Resets current view for both Person and Appointment panels
+     */
+    @FXML
+    public void onClick() {
+        String commandText1 = "listappt";
+        String commandText2 = "list";
+        try {
+            executeCommand(commandText1);
+            executeCommand(commandText2);
+            resultDisplay.setFeedbackToUser("Reset view");
+        } catch (CommandException | ParseException err) {
+            return;
         }
     }
 }
