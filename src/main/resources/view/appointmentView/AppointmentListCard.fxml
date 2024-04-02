@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
 <HBox id="appointmentCardPane" fx:id="appointmentCardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
@@ -18,16 +20,29 @@
       <padding>
         <Insets top="5" right="5" bottom="5" left="15" />
       </padding>
+      <Label fx:id="appointmentDisplayedIndex" styleClass="cell_big_label" alignment="TOP_LEFT">
+        <minWidth>
+          <!-- Ensures that the label text is never truncated -->
+          <Region fx:constant="USE_PREF_SIZE" />
+        </minWidth>
+      </Label>
       <HBox spacing="5" alignment="CENTER_LEFT">
-        <Label fx:id="appointmentDisplayedIndex" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
+          <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+            <image>
+              <Image url="@../../images/calendar.png"/>
+            </image>
+        </ImageView>
         <Label fx:id="appointmentTime" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <Label fx:id="nameOfAppointmentHolder" styleClass="cell_small_label" text="\$appointmentTime" />
+      <!-- Name Label and Icon -->
+      <HBox spacing="5" alignment="CENTER_LEFT">
+        <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+          <image>
+            <Image url="@../../images/patient.png"/>
+          </image>
+        </ImageView>
+        <Label fx:id="nameOfAppointmentHolder" text="$appointmentHolder" styleClass="cell_big_label" />
+      </HBox>
     </VBox>
   </GridPane>
 </HBox>

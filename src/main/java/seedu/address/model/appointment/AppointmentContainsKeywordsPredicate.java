@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.appointment;
+package seedu.address.model.appointment;
 
 import java.util.List;
 import java.util.function.Function;
@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.Model;
-import seedu.address.model.appointment.Appointment;
 
 /**
  * Performs a fuzzy search across {@code Appointment} and its associated
