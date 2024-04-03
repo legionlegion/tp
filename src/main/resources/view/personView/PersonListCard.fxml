@@ -45,10 +45,10 @@
         <FlowPane fx:id="tags" />
       </HBox>
       <!-- Appointment FlowPane and Icon -->
-      <HBox fx:id="tagsIcon" spacing="5" alignment="CENTER_LEFT">
+      <HBox spacing="5" alignment="CENTER_LEFT">
         <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
           <image>
-            <Image url="@../../images/tag.png"/>
+            <Image url="@../../images/calendar.png"/>
           </image>
         </ImageView>
         <FlowPane fx:id="associatedAppointments" />

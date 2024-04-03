@@ -139,7 +139,9 @@ Format: `findappt KEYWORD [MORE_KEYWORDS]`
 - Possible keyword types:
   - NAME
 
-<img src="images/userguide/findexample.png" style="width: 100%;">
+<img src="images/userguide/findappt.png" style="width: 100%;">
+<p></p>
+<p>Alternatively, simply double click any Person card to show the appointments associated with the person.</p>
 
 <h4 id="list" style="color: #7393B3">
   Listing contacts: `list`
@@ -156,6 +158,20 @@ Format: `list`
 Shows a list of all appointments in RapidTracer.
 
 Format: `listappt`
+
+<h3 id="trace" style="color: #088F8F">
+  Trace contacts
+</h3>
+
+Shows a list of close contacts in RapidTracer that have attended an appointment overlapping the selected appointment.
+
+Format: `trace INDEX`
+
+- Traces the appointment at the specified INDEX.
+
+<img src="images/userguide/trace.png" style="width: 100%;">
+<p></p>
+<p>Alternatively, simply double click any appointment card to trace all close contacts.</p>
 
 <h3 id="editing-records" style="color: #088F8F">
   Editing and deleting records
@@ -238,7 +254,7 @@ Format: `help`
 
 To properly exit RapidTracer, click the `File` option in the top left corner and click `Exit`. This will ensure that the data is saved properly. 
 
-<img src="images/userguide/exitingrapidtracer.png" style="width: 100%;">
+<img src="images/userguide/exit.png" style="width: 100%;">
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -274,6 +290,7 @@ Find contacts | `find KEYWORD [MORE_KEYWORDS]` | `find min`,<br> `find rc4`
 Find appointments | `findappt KEYWORD [MORE_KEYWORDS]` | `findappt min`
 List all contacts | `list` |
 List all appointments | `listappt` |
+Trace contacts | `trace INDEX` | `trace 1`
 Editing contacts | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [t/TAG]` | `edit 1 n/Seah Min Rei`
 Editing appointments | `editappt INDEX d/DATE_TIME` | `editappt 1 30/12/2024 8am-9am`
 Help | `help` |
