@@ -19,12 +19,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class ExportCommandTest {
-<<<<<<< HEAD
-    private static final Path EMPTY_PERSONS_PATH = Paths.get("src","test","data",
-=======
 
     private static final Path EMPTY_PERSONS_PATH = Paths.get("src", "test", "data",
->>>>>>> branch-export
             "JsonAddressBookStorageTest", "emptyPersonAddressBook.json");
     private static final Path INVALID_JSON_FORMAT_PATH = Paths.get("src", "test", "data",
             "JsonAddressBookStorageTest", "notJsonFormatAddressBook.json");
@@ -103,5 +99,5 @@ public class ExportCommandTest {
                 .execute(modelWithNoPersonsArray));
         assertEquals("No patients data stored in the JSON file", thrown.getMessage());
     }
-
 }
+
