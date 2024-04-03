@@ -74,7 +74,13 @@ public class PersonCard extends UiPart<Region> {
         appointments.stream()
                 .sorted()
                 .findFirst()
-                .ifPresent(appointment -> associatedAppointments.getChildren().add(new Label(appointment.getAppointmentTimeString())));
+                .ifPresentOrElse(
+                        appointment -> {
+                            associatedAppointments.getChildren().add(new Label(appointment.getAppointmentTimeString()));
+                        },
+                        () -> {
+                            associatedAppointments.getChildren().add(new Label("No Upcoming Appointments"));
+                        });
         boolean hasTags = !person.getTags().isEmpty();
         tagsIcon.setVisible(hasTags); // This will show the icon only if there are tags
         tagsIcon.setManaged(hasTags);
