@@ -82,7 +82,7 @@ public class Appointment implements Comparable<Appointment> {
             return 1;
         }
 
-        return this.appointmentTime.compareTo(o.appointmentTime);
+        return o.appointmentTime.compareTo(this.appointmentTime);
     }
 
 }

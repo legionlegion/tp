@@ -39,6 +39,18 @@ public class Person {
     }
 
     /**
+     * Overload constructor for edit person.
+     */
+    public Person(Name name, Phone phone, Address address, Set<Tag> tags, UUID id) {
+        requireAllNonNull(name, phone, address, tags);
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.tags.addAll(tags);
+    }
+
+    /**
      * Constructor for Person with an ID
      * @param id id of the person
      * @param name name of the person
