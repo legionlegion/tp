@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.logic.Logic;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
+import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
 
 /**
@@ -21,6 +22,8 @@ public class AppointmentListPanel extends UiPart<Region> {
 
     private final Logic logic;
 
+    private final MainWindow mainWindow;
+
     @FXML
     private ListView<Appointment> appointmentListView;
 
@@ -32,9 +35,10 @@ public class AppointmentListPanel extends UiPart<Region> {
      * Persons. This is because {@code ObservableList<Appointment>} does not have any
      * relationship with {@code Person}.
      */
-    public AppointmentListPanel(Logic logic, ObservableList<Appointment> appointmentList) {
+    public AppointmentListPanel(Logic logic, ObservableList<Appointment> appointmentList, MainWindow mainWindow) {
         super(FXML);
         this.logic = logic;
+        this.mainWindow = mainWindow;
         appointmentListView.setItems(appointmentList);
         appointmentListView.setCellFactory(listView -> new AppointmentListViewCell());
     }
@@ -53,7 +57,7 @@ public class AppointmentListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 Person person = logic.getPersonById(appointment.getPersonId());
-                setGraphic(new AppointmentCard(appointment, person, getIndex() + 1).getRoot());
+                setGraphic(new AppointmentCard(appointment, person, getIndex() + 1, mainWindow).getRoot());
             }
         }
     }

@@ -1,14 +1,15 @@
 package seedu.address.ui.person;
 
-import java.util.logging.Logger;
+// import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
+// import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
 
 /**
@@ -16,7 +17,10 @@ import seedu.address.ui.UiPart;
  */
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "personView/PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+
+    // private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+
+    private final MainWindow mainWindow;
 
     @FXML
     private ListView<Person> personListView;
@@ -24,8 +28,9 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(ObservableList<Person> personList, MainWindow mainWindow) {
         super(FXML);
+        this.mainWindow = mainWindow;
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
@@ -42,7 +47,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(person, getIndex() + 1, mainWindow).getRoot());
             }
         }
     }
