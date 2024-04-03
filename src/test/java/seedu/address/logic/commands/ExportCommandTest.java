@@ -18,7 +18,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
-
 public class ExportCommandTest {
 
     private static final Path EMPTY_PERSONS_PATH = Paths.get("src", "test", "data",
@@ -100,5 +99,5 @@ public class ExportCommandTest {
                 .execute(modelWithNoPersonsArray));
         assertEquals("No patients data stored in the JSON file", thrown.getMessage());
     }
-
 }
+
