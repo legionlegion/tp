@@ -19,13 +19,18 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class ExportCommandTest {
+<<<<<<< HEAD
     private static final Path EMPTY_PERSONS_PATH = Paths.get("src","test","data",
+=======
+
+    private static final Path EMPTY_PERSONS_PATH = Paths.get("src", "test", "data",
+>>>>>>> branch-export
             "JsonAddressBookStorageTest", "emptyPersonAddressBook.json");
     private static final Path INVALID_JSON_FORMAT_PATH = Paths.get("src", "test", "data",
             "JsonAddressBookStorageTest", "notJsonFormatAddressBook.json");
     private static final Path NO_PERSONS_ARRAY_PATH = Paths.get("src", "test", "data",
             "JsonAddressBookStorageTest", "noPersonArray.json");
-    private static final Path WRONG_FILE_PATH = Paths.get("src","test","data",
+    private static final Path WRONG_FILE_PATH = Paths.get("src", "test", "data",
             "JsonAddressBookStorageTest", "wrongFilePath.json");
     private static final Path TYPICAL_PERSONS_PATH = Paths.get("src", "test", "data",
             "JsonSerializableAddressBookTest", "typicalPersonsAddressBook.json");
@@ -73,7 +78,7 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_WrongJsonFilePath_throwsCommandException() {
+    public void execute_withoutValidJsonFilePath_throwsCommandException() {
         CommandException thrown = assertThrows(CommandException.class, () -> exportCommand
                 .execute(modelWithWrongFilePath));
         assertEquals("Unable to find the JSON file.", thrown.getMessage());
