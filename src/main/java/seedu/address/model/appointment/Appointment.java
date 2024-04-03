@@ -6,7 +6,7 @@ import java.util.UUID;
  * Represents an Appointment in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Appointment {
+public class Appointment implements Comparable<Appointment> {
 
     // Data fields
     private final UUID id;
@@ -74,6 +74,15 @@ public class Appointment {
         boolean samePersonId = personId.equals(otherAppointment.getPersonId());
         boolean sameDate = appointmentTime.equals(otherAppointment.getAppointmentTime());
         return (samePersonId && sameDate);
+    }
+
+    @Override
+    public int compareTo(Appointment o) {
+        if (o == null) {
+            return 1;
+        }
+
+        return this.appointmentTime.compareTo(o.appointmentTime);
     }
 
 }

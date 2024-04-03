@@ -186,6 +186,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Appointment> getSourceAppointmentList() {
+        return this.addressBook.getAppointmentList();
+    }
+
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

@@ -79,6 +79,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Appointment> getSourceAppointmentList() {
+        return model.getSourceAppointmentList();
+    }
+
+    @Override
     public Person getPersonById(UUID personId) {
         return model.getPersonById(personId);
     }

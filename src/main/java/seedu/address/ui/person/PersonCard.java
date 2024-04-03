@@ -1,6 +1,7 @@
 package seedu.address.ui.person;
 
 import java.util.Comparator;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
@@ -48,13 +50,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
+    private FlowPane associatedAppointments;
+    @FXML
     private HBox tagsIcon;
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to
-     * display.
+     * Creates a {@code PersonCode} with the given {@code Person}, its associated
+     * {@code Appointments}, and index to display.
      */
-    public PersonCard(Person person, int displayedIndex, MainWindow mainWindow) {
+    public PersonCard(Person person, List<Appointment> appointments, int displayedIndex, MainWindow mainWindow) {
         super(FXML);
         this.person = person;
         this.mainWindow = mainWindow;
@@ -67,6 +71,10 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        appointments.stream()
+                .sorted()
+                .findFirst()
+                .ifPresent(appointment -> associatedAppointments.getChildren().add(new Label(appointment.getAppointmentTimeString())));
         boolean hasTags = !person.getTags().isEmpty();
         tagsIcon.setVisible(hasTags); // This will show the icon only if there are tags
         tagsIcon.setManaged(hasTags);
