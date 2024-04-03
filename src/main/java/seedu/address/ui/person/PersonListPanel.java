@@ -1,13 +1,15 @@
 package seedu.address.ui.person;
 
-// import java.util.logging.Logger;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-// import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
@@ -21,22 +23,36 @@ public class PersonListPanel extends UiPart<Region> {
     // private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     private final MainWindow mainWindow;
+    private final ObservableList<Appointment> appointmentList;
 
     @FXML
     private ListView<Person> personListView;
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
+     * {@code personListView} also updates whenever changes are made to
+     * {@code appointmentList}.
      */
-    public PersonListPanel(ObservableList<Person> personList, MainWindow mainWindow) {
+    public PersonListPanel(ObservableList<Person> personList, ObservableList<Appointment> appointmentList,
+            MainWindow mainWindow) {
         super(FXML);
         this.mainWindow = mainWindow;
+        this.appointmentList = appointmentList;
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
+
+        appointmentList.addListener((ListChangeListener<Appointment>) change -> {
+            while (change.next()) {
+                if (change.wasAdded() || change.wasRemoved()) {
+                    personListView.refresh();
+                }
+            }
+        });
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using
+     * a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<Person> {
         @Override
@@ -47,9 +63,16 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1, mainWindow).getRoot());
+                List<Appointment> appointments = findAppointmentsForPerson(person);
+                setGraphic(new PersonCard(person, appointments, getIndex() + 1, mainWindow).getRoot());
             }
         }
+    }
+
+    private List<Appointment> findAppointmentsForPerson(Person person) {
+        return appointmentList.stream()
+                .filter(a -> a.getPersonId().equals(person.getId()))
+                .collect(Collectors.toList());
     }
 
 }

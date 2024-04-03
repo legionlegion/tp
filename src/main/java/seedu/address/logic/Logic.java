@@ -38,6 +38,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of appointments */
     ObservableList<Appointment> getFilteredAppointmentList();
 
+    /** Returns an unmodifiable view of the full list of appointments */
+    ObservableList<Appointment> getSourceAppointmentList();
+
     /** Returns a {@code Person} by its UUID. */
     Person getPersonById(UUID personId);
 

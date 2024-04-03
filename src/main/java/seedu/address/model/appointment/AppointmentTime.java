@@ -10,7 +10,7 @@ import java.util.Locale;
  * ASSUMPTION: An Appointment CANNOT SPAN MULTIPLE DAYS!!!
  * Guarantees: none at the moment.
  */
-public class AppointmentTime {
+public class AppointmentTime implements Comparable<AppointmentTime> {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private final LocalDate appointmentDate;
     private final LocalTime startTime;
@@ -96,5 +96,19 @@ public class AppointmentTime {
         String formattedStartTime = startTime.format(timeFormat);
         String formattedEndTime = endTime.format(timeFormat);
         return formattedDate + ": from " + formattedStartTime + " to " + formattedEndTime;
+    }
+
+    @Override
+    public int compareTo(AppointmentTime o) {
+        if (o == null) {
+            return 1;
+        }
+
+        int dateComparison = this.appointmentDate.compareTo(o.appointmentDate);
+        if (dateComparison != 0) {
+            return dateComparison;
+        }
+
+        return this.startTime.compareTo(o.startTime);
     }
 }

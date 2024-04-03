@@ -130,4 +130,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
+    /** Returns an unmodifiable view of the full appointment list. */
+    ObservableList<Appointment> getSourceAppointmentList();
 }
