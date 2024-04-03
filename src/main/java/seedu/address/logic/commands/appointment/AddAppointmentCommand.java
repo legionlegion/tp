@@ -51,7 +51,6 @@ public class AddAppointmentCommand extends Command {
 
     /**
      * Finds the person object based on index given. Then creates appointment linked to that person.
-     * TODO: Ensure that this command is executed ONLY when the current view is PERSON.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
