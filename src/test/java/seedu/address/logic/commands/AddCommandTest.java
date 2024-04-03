@@ -194,6 +194,11 @@ public class AddCommandTest {
         public Person getPersonById(UUID personId) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Appointment> getSourceAppointmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

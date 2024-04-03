@@ -3,11 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 import javafx.collections.ObservableList;
@@ -42,11 +40,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     // This facilitates fast access to appointments.
     private final Map<UUID, Appointment> appointmentMap;
 
-    // A map that allows for retrieval of a set of Appointment objects
-    // by their associated Person Id.
-    // This facilitates access to a person's appointments.
-    private final Map<UUID, Set<Appointment>> personAppointmentsMap;
-
     /*
      * The 'unusual' code block below is a non-static initialization block,
      * sometimes used to avoid duplication
@@ -62,7 +55,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointments = new UniqueAppointmentList();
         personMap = new HashMap<>();
         appointmentMap = new HashMap<>();
-        personAppointmentsMap = new HashMap<>();
     }
 
     public AddressBook() {
@@ -99,7 +91,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.appointmentMap.clear();
         for (Appointment a : appointments) {
             this.appointmentMap.put(a.getId(), a);
-            linkAppointmentToPerson(a);
         }
     }
 
@@ -185,12 +176,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds an appointment to the list of appointments.
      *
-     * @param appointment The appointment to be added.
+     * @param a The appointment to be added.
      */
     public void addAppointment(Appointment a) {
         appointments.add(a);
         appointmentMap.put(a.getId(), a);
-        linkAppointmentToPerson(a);
     }
 
     /**
@@ -229,33 +219,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// Util methods
-
-    /**
-     * Adds an appointment to the personAppointmentsMap.
-     * If the key does not exist, i.e. the person does not have any appointments
-     * yet, initialize a new list and add the appointment to it.
-     * 
-     * @param a appointment to add
-     */
-    private void linkAppointmentToPerson(Appointment a) {
-        UUID personId = a.getPersonId();
-        assert personMap.containsKey(personId);
-        personAppointmentsMap.computeIfAbsent(personId, k -> new HashSet<>()).add(a);
-    }
-
-    /**
-     * Removes an appointment from the personAppointmentsMap.
-     * 
-     * @param a appointment to unlink
-     */
-    private void unlinkAppointmentFromPerson(Appointment a) {
-        UUID personId = a.getPersonId();
-        assert personMap.containsKey(personId);
-        assert personAppointmentsMap.containsKey(personId);
-        boolean isRemoved = personAppointmentsMap.get(personId).remove(a);
-        // logging
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this)

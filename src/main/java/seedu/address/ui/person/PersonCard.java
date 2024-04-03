@@ -77,8 +77,7 @@ public class PersonCard extends UiPart<Region> {
                 .ifPresentOrElse(
                         appointment -> {
                             associatedAppointments.getChildren().add(new Label(appointment.getAppointmentTimeString()));
-                        },
-                        () -> {
+                        }, () -> {
                             associatedAppointments.getChildren().add(new Label("No Upcoming Appointments"));
                         });
         boolean hasTags = !person.getTags().isEmpty();
