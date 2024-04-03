@@ -105,6 +105,30 @@ Format: `add n/NAME p/PHONE_NUMBER d/DATE_TIME [a/ADDRESS] [t/TAG]`
   - `today 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
 
+<h4 id="add" style="color: #7393B3">
+  Importing patient data: "import"
+</h4>
+
+You can import patient data from a csv file.The csv file should be formatted in a way that it only contains 4 columns with specific headings as shown below.
+
+![img_1.png](img_1.png)
+
+Format: `import i/filepath`
+
+- The filepath should be an absolute file directory path plus the file name.
+- You should avoid empty lines in the csv file you want to import.
+
+<h4 id="add" style="color: #7393B3">
+  Exporting patient data: "export"
+</h4>
+
+You can export existing patient data to a csv file stored in a specific location.
+
+Format: `export`
+
+- Please create a directory named "RapidTracerData" and create a new csv file named "PatientData" in the directory.
+- The pre-existed data in the csv file will be overwritten once you perform the export action.
+
 <h3 id="searching-records" style="color: #088F8F">
   Searching existing records
 </h3>

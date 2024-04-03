@@ -26,7 +26,6 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_CREATE_DIRECTORY_FAILURE = "Unable to create the directory for the CSV file.";
     public static final String MESSAGE_JSON_FILE_NOT_FOUND_FAILURE = "Unable to find the JSON file.";
     public static final String MESSAGE_PARSE_JSON_FILE_FAILURE = "Error occurred while parsing JSON file.";
-    public static final String MESSAGE_MAPPING_FAILURE = "Error occurred while mapping JSON data to CSV schema.";
     public static final String MESSAGE_NO_PATIENT_FAILURE = "No patients data stored in the JSON file";
 
     public static final String MESSAGE_SUCCESS = "Exported all patients' information to a CSV file \n"
