@@ -3,6 +3,8 @@ package seedu.address.ui.person;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javafx.collections.ListChangeListener;
+
 // import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -32,6 +34,8 @@ public class PersonListPanel extends UiPart<Region> {
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
+     * {@code personListView} also updates whenever changes are made to
+     * {@code appointmentList}.
      */
     public PersonListPanel(ObservableList<Person> personList, ObservableList<Appointment> appointmentList,
             MainWindow mainWindow) {
@@ -40,6 +44,14 @@ public class PersonListPanel extends UiPart<Region> {
         this.appointmentList = appointmentList;
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
+
+        appointmentList.addListener((ListChangeListener<Appointment>) change -> {
+            while (change.next()) {
+                if (change.wasAdded() || change.wasRemoved()) {
+                    personListView.refresh();
+                }
+            }
+        });
     }
 
     /**
