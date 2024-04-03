@@ -18,9 +18,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
-
 public class ExportCommandTest {
-
     private static final Path EMPTY_PERSONS_PATH = Paths.get("src","test","data",
             "JsonAddressBookStorageTest", "emptyPersonAddressBook.json");
     private static final Path INVALID_JSON_FORMAT_PATH = Paths.get("src", "test", "data",
