@@ -32,7 +32,7 @@ public class AddAppointmentCommand extends Command {
             + "1 "
             + PREFIX_DATE + "17/01/2024 9am-2pm";
 
-    public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New appointment added for %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book";
 
     private final Index index; // Index of person card to link appointment
@@ -63,6 +63,7 @@ public class AddAppointmentCommand extends Command {
 
         Person personToAddAppointmentFor = lastShownPersonList.get(index.getZeroBased());
         UUID personId = personToAddAppointmentFor.getId();
+        String personName = personToAddAppointmentFor.getName().fullName;
 
         Appointment appointmentToAdd = new Appointment(personId, appointmentTime);
 
@@ -71,7 +72,8 @@ public class AddAppointmentCommand extends Command {
         }
 
         model.addAppointment(appointmentToAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatAppointment(appointmentToAdd)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+            Messages.formatAppointment(appointmentToAdd, personName)));
     }
 
     @Override

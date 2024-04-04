@@ -68,6 +68,23 @@ public class AppointmentTime implements Comparable<AppointmentTime> {
         return dateStr + " " + startTimeStr + "-" + endTimeStr;
     }
 
+    /**
+     * Builds the current appointment time.
+     * @return current {@code AppointmentTime}
+     */
+    public static AppointmentTime buildCurrent() {
+        LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
+
+        // Format the current date and time to fit the constructor's expected input
+        String formattedDate = currentDate.format(DATE_FORMAT);
+        String formattedStartTime = currentTime.format(DateTimeFormatter.ofPattern("ha")).toLowerCase();
+        String formattedEndTime = currentTime.format(DateTimeFormatter.ofPattern("ha")).toLowerCase();
+
+        String appointmentTimeString = formattedDate + " " + formattedStartTime + "-" + formattedEndTime;
+        return new AppointmentTime(appointmentTimeString);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -98,17 +115,20 @@ public class AppointmentTime implements Comparable<AppointmentTime> {
         return formattedDate + ": from " + formattedStartTime + " to " + formattedEndTime;
     }
 
+    /**
+     * Sort by earliest date & time first.
+     */
     @Override
     public int compareTo(AppointmentTime o) {
         if (o == null) {
             return 1;
         }
 
-        int dateComparison = this.appointmentDate.compareTo(o.appointmentDate);
+        int dateComparison = o.appointmentDate.compareTo(this.appointmentDate);
         if (dateComparison != 0) {
             return dateComparison;
         }
 
-        return this.startTime.compareTo(o.startTime);
+        return o.startTime.compareTo(this.startTime);
     }
 }

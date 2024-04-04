@@ -331,8 +331,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | clinic clerk with many patients in the address book | sort patient by name   | locate a patient easily                                                 |
 | `*`      | normal guy just chilling                   | be able to click buttons | navigate the system even if I am not familiar with a CLI |
 
-*{More to be added}*
-
 ### Use cases
 
 As Rapid Tracer is meant to be single-user, the System and Actor for all use cases will be RapidTracer and Clinic Clerk (Mr. Surya) respectively, unless otherwise specified.
@@ -347,14 +345,14 @@ As Rapid Tracer is meant to be single-user, the System and Actor for all use cas
 3. System exits.
 4. Use case ends.
 
-## Use Case: G02 - Display Help Message
+**Use Case: G02 - Display Help Message**
 
 **MSS**
 1. Actor requests to display a help message.
 2. System displays a help message.
 3. Use case ends.
 
-# Contact Use Cases
+#### Contact Use Cases
 
 **Use Case: C01 - Add New Contact**
 
@@ -427,7 +425,7 @@ As Rapid Tracer is meant to be single-user, the System and Actor for all use cas
 - 2a. The list is empty.
     - Use case ends.
 
-# Appointment Use Cases
+#### Appointment Use Cases
 
 **Use Case: A01 - Add Appointment**
 
@@ -494,8 +492,6 @@ As Rapid Tracer is meant to be single-user, the System and Actor for all use cas
     1. System shows an error message.
     - Use case resumes at step 1.
 
-*{More to be added}*
-
 ### Non-Functional Requirements
 
 1. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
@@ -509,8 +505,6 @@ As Rapid Tracer is meant to be single-user, the System and Actor for all use cas
 9. Should be available during clinic operating hours with minimal downtime.
 10. Should have mechanisms in place to prevent data loss or corruption, such as regular backups.
 11. Should be able to recover from failures, minimizing downtime.
-
-*{More to be added}*
 
 ### Glossary
 
