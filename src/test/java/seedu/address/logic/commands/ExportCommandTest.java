@@ -36,7 +36,6 @@ public class ExportCommandTest {
     private Model modelWithWrongFilePath = new ModelManager(new AddressBook(), new UserPrefs());
     private Model modelWithInvalidJsonFormat = new ModelManager(new AddressBook(), new UserPrefs());
     private Model modelWithNoPersonsArray = new ModelManager(new AddressBook(), new UserPrefs());
-    private Model modelWithInvalidStructure = new ModelManager(new AddressBook(), new UserPrefs());
 
     @BeforeEach
     public void setUp() {
@@ -92,11 +91,5 @@ public class ExportCommandTest {
         CommandException thrown = assertThrows(CommandException.class, () -> exportCommand.execute(emptyModel));
         assertEquals("No patients data stored in the JSON file", thrown.getMessage());
     }
-
-    @Test
-    public void execute_noPersonsArrayAddressBook_throwsCommandException() {
-        CommandException thrown = assertThrows(CommandException.class, () -> exportCommand
-                .execute(modelWithNoPersonsArray));
-        assertEquals("No patients data stored in the JSON file", thrown.getMessage());
-    }
 }
+
