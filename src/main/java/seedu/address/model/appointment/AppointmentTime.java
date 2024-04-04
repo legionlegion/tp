@@ -68,6 +68,10 @@ public class AppointmentTime implements Comparable<AppointmentTime> {
         return dateStr + " " + startTimeStr + "-" + endTimeStr;
     }
 
+    /**
+     * Builds the current appointment time.
+     * @return current {@code AppointmentTime}
+     */
     public static AppointmentTime buildCurrent() {
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
