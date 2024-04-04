@@ -286,11 +286,12 @@ Action     | Format | Examples
 -----------|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------
 Add contacts | `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG]` | `add n/Min Rei p/86615076`,<br> `add n/Min Rei p/86615076 a/UTown RC4`,<br> `add n/Min Rei p/86615076 d/27/03/2024 2pm-3pm`
 Add appointments | `addappt INDEX d/DATE_TIME` | `addappt 1 d/27/03/2024 9am-10am`,<br> `addappt 1 d/today 9am-10am`,<br> `addappt 1 d/tdy 9am-10am`
-Find contacts | `find KEYWORD [MORE_KEYWORDS]` | `find min`,<br> `find rc4`
-Find appointments | `findappt KEYWORD [MORE_KEYWORDS]` | `findappt min`
+Find contacts | `find KEYWORD [MORE_KEYWORDS]` | `find Min Rei`,<br> `find rc4`
+Find appointments | `findappt KEYWORD [MORE_KEYWORDS]` | `findappt Min Rei`
 List all contacts | `list` |
 List all appointments | `listappt` |
 Trace contacts | `trace INDEX` | `trace 1`
 Editing contacts | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [t/TAG]` | `edit 1 n/Seah Min Rei`
 Editing appointments | `editappt INDEX d/DATE_TIME` | `editappt 1 30/12/2024 8am-9am`
 Help | `help` |
+Exit application | `exit` |
