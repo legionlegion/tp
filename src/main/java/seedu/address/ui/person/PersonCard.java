@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.person.Person;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
@@ -73,6 +74,7 @@ public class PersonCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         appointments.stream()
                 .sorted()
+                .filter(appointment -> appointment.getAppointmentTime().compareTo(AppointmentTime.buildCurrent()) <= 0)
                 .findFirst()
                 .ifPresentOrElse(
                         appointment -> {
