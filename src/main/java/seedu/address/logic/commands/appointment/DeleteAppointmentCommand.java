@@ -3,7 +3,9 @@ package seedu.address.logic.commands.appointment;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.UUID;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -12,6 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.person.Person;
 
 /**
  * Deletes an appointment identified using it's displayed index from the address book.
@@ -25,7 +28,7 @@ public class DeleteAppointmentCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment: %1$s";
+    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment for %1$s";
 
     private final Index targetIndex;
 
@@ -47,9 +50,20 @@ public class DeleteAppointmentCommand extends Command {
         }
 
         Appointment appointmentToDelete = lastShownList.get(targetIndex.getZeroBased());
+        UUID personId = appointmentToDelete.getPersonId();
+        ObservableList<Person> persons = model.getFilteredPersonList();
+        String personName = "";
+
+        for (Person curr : persons) {
+            if (personId.equals(curr.getId())) {
+                personName = curr.getName().fullName;
+                break;
+            }
+        }
+
         model.deleteAppointment(appointmentToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS,
-                Messages.formatAppointment(appointmentToDelete)));
+                Messages.formatAppointment(appointmentToDelete, personName)));
     }
 
     @Override

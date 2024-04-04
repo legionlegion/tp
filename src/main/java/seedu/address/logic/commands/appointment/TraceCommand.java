@@ -3,7 +3,9 @@ package seedu.address.logic.commands.appointment;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.UUID;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -13,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentTimeOverlapPredicate;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonFromAppointmentListPredicate;
 
 /**
@@ -26,7 +29,7 @@ public class TraceCommand extends Command {
         + "appointment identified.\n"
         + "Example: " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_TRACE_SUCCESS = "Traced appointment: %1$s";
+    public static final String MESSAGE_TRACE_SUCCESS = "Traced appointment for %1$s";
 
     private AppointmentTimeOverlapPredicate appointmentTimeOverlapPredicate;
 
@@ -50,13 +53,25 @@ public class TraceCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
         Appointment appointmentToTrace = lastShownList.get(targetIndex.getZeroBased());
+
+        UUID personId = appointmentToTrace.getPersonId();
+        ObservableList<Person> persons = model.getFilteredPersonList();
+        String personName = "";
+
+        for (Person curr : persons) {
+            if (personId.equals(curr.getId())) {
+                personName = curr.getName().fullName;
+                break;
+            }
+        }
+
         this.appointmentTimeOverlapPredicate = new AppointmentTimeOverlapPredicate(appointmentToTrace);
         model.updateFilteredAppointmentList(appointmentTimeOverlapPredicate);
 
         personFromAppointmentListPredicate = new PersonFromAppointmentListPredicate(model.getFilteredAppointmentList());
         model.updateFilteredPersonList(personFromAppointmentListPredicate);
         return new CommandResult(String.format(MESSAGE_TRACE_SUCCESS,
-            Messages.formatAppointment(appointmentToTrace)));
+            Messages.formatAppointment(appointmentToTrace, personName)));
     }
 
     @Override
