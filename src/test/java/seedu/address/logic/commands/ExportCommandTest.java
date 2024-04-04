@@ -100,4 +100,3 @@ public class ExportCommandTest {
         assertEquals("No patients data stored in the JSON file", thrown.getMessage());
     }
 }
-
