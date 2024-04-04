@@ -21,6 +21,10 @@ checkstyle {
 	toolVersion = '10.2'
 }
 
+run {
+	enableAssertions = true
+}
+
 test {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
@@ -59,6 +63,7 @@ dependencies {
 	implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
+	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-csv', version: '2.13.0'
 	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 	// https://mavenlibs.com/maven/dependency/com.opencsv/opencsv
 	implementation group: 'com.opencsv', name: 'opencsv', version: '5.8'

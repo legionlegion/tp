@@ -104,6 +104,31 @@ Format: `add n/NAME p/PHONE_NUMBER d/DATE_TIME [a/ADDRESS] [t/TAG]`
   - `24/03/2024 10am - 2pm`
   - `today 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
+- Appointments cannot end on a different day from when they start.
+
+<h4 id="add" style="color: #7393B3">
+  Importing patient data: "import"
+</h4>
+
+You can import patient data from a csv file.The csv file should be formatted in a way that it only contains 4 columns with specific headings as shown below.
+
+![img_1.png](img_1.png)
+
+Format: `import i/filepath`
+
+- The filepath should be an absolute file directory path plus the file name.
+- You should avoid empty lines in the csv file you want to import.
+
+<h4 id="add" style="color: #7393B3">
+  Exporting patient data: "export"
+</h4>
+
+You can export existing patient data to a csv file stored in a specific location.
+
+Format: `export`
+
+- Please create a directory named "RapidTracerData" and create a new csv file named "PatientData" in the directory.
+- The pre-existed data in the csv file will be overwritten once you perform the export action.
 
 <h3 id="searching-records" style="color: #088F8F">
   Searching existing records
@@ -163,7 +188,9 @@ Format: `listappt`
   Trace contacts
 </h3>
 
-Shows a list of close contacts in RapidTracer that have attended an appointment overlapping the selected appointment.
+Performs contact tracing to the selected appointment.
+Shows a list of appointments in RapidTracer that overlaps with the selected appointment.
+Shows a list of persons that attended those appointments.
 
 Format: `trace INDEX`
 
@@ -252,7 +279,7 @@ Format: `help`
   Exiting/closing RapidTracer
 </h4>
 
-To properly exit RapidTracer, click the `File` option in the top left corner and click `Exit`. This will ensure that the data is saved properly. 
+To properly exit RapidTracer, click the `File` option in the top left corner and click `Exit`. This will ensure that the data is saved properly.
 
 <img src="images/userguide/exit.png" style="width: 100%;">
 

@@ -7,7 +7,9 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
@@ -18,6 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentTime;
+import seedu.address.model.person.Person;
 
 /**
  * Edits the details of an existing appointment in the address book.
@@ -33,7 +36,7 @@ public class EditAppointmentCommand extends Command {
             + "[" + PREFIX_DATE + "DATE]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATE + "15/03/2024 9AM-2PM ";
-    public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: %1$s";
+    public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment for %1$s";
     public static final String MESSAGE_NOT_EDITED = "Date needs to be edited.";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book.";
 
@@ -64,6 +67,18 @@ public class EditAppointmentCommand extends Command {
         Appointment appointmentToEdit = lastShownList.get(index.getZeroBased());
         Appointment editedAppointment = createEditedAppointment(appointmentToEdit, editAppointmentDescriptor);
 
+        UUID personId = appointmentToEdit.getPersonId();
+        ObservableList<Person> persons = model.getFilteredPersonList();
+        String personName = "";
+
+        for (Person curr : persons) {
+            if (personId.equals(curr.getId())) {
+                personName = curr.getName().fullName;
+                break;
+            }
+        }
+
+
         if (model.hasAppointment(editedAppointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
@@ -71,7 +86,7 @@ public class EditAppointmentCommand extends Command {
         model.setAppointment(appointmentToEdit, editedAppointment);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
-                Messages.formatAppointment(editedAppointment)));
+                Messages.formatAppointment(editedAppointment, personName)));
     }
 
     /**

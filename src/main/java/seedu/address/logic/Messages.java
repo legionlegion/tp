@@ -55,12 +55,11 @@ public class Messages {
      * Formats the {@code appointment} for display to the user.
      * Displays person name corresponding to appointment, and appointment details.
      */
-    public static String formatAppointment(Appointment appointment) {
+    public static String formatAppointment(Appointment appointment, String name) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(appointment.getPersonId())
+        builder.append(name)
                 .append("; Time: ")
                 .append(appointment.getAppointmentTime());
         return builder.toString();
     }
-
 }
