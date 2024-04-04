@@ -104,6 +104,7 @@ Format: `add n/NAME p/PHONE_NUMBER d/DATE_TIME [a/ADDRESS] [t/TAG]`
   - `24/03/2024 10am - 2pm`
   - `today 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
+- Appointments cannot end on a different day from when they start.
 
 <h3 id="searching-records" style="color: #088F8F">
   Searching existing records
@@ -163,7 +164,9 @@ Format: `listappt`
   Trace contacts
 </h3>
 
-Shows a list of close contacts in RapidTracer that have attended an appointment overlapping the selected appointment.
+Performs contact tracing to the selected appointment.
+Shows a list of appointments in RapidTracer that overlaps with the selected appointment.
+Shows a list of persons that attended those appointments.
 
 Format: `trace INDEX`
 
