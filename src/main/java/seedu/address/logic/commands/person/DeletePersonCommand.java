@@ -45,19 +45,6 @@ public class DeletePersonCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        boolean finish = false;
-
-        while (!finish) {
-            ObservableList<Appointment> appointments = model.getFilteredAppointmentList();
-            finish = true;
-            for (Appointment a : appointments) {
-                if (personToDelete.getId().equals(a.getPersonId())) {
-                    model.deleteAppointment(a);
-                    finish = false;
-                    break;
-                }
-            }
-        }
 
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.formatPerson(personToDelete)));

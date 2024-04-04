@@ -30,7 +30,7 @@ public class AddAppointmentCommand extends Command {
             + PREFIX_DATE + "DATE\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
-            + PREFIX_DATE + "17/01/2024 9am-2pm";
+            + PREFIX_DATE + "17/05/2024 9am-2pm";
 
     public static final String MESSAGE_SUCCESS = "New appointment added for %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book";
