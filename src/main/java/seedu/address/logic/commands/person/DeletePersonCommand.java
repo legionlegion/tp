@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -11,6 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 
 /**
@@ -43,6 +45,20 @@ public class DeletePersonCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        boolean finish = false;
+
+        while (!finish) {
+            ObservableList<Appointment> appointments = model.getFilteredAppointmentList();
+            finish = true;
+            for (Appointment a : appointments) {
+                if (personToDelete.getId().equals(a.getPersonId())) {
+                    model.deleteAppointment(a);
+                    finish = false;
+                    break;
+                }
+            }
+        }
+
         model.deletePerson(personToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.formatPerson(personToDelete)));
     }
