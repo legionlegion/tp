@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,9 +141,23 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Removes a {@code Person} from this {@code AddressBook}.
+     * Also moves all appointments associated with person.
+     * Appointments must be removed first.
      * {@code Person} must exist in the address book.
      */
     public void removePerson(Person person) {
+        List<Appointment> appointmentsToRemove = new ArrayList<>();
+
+        for (Appointment a : appointments) {
+            if (person.getId().equals(a.getPersonId())) {
+                appointmentsToRemove.add(a);
+            }
+        }
+
+        for (Appointment a : appointmentsToRemove) {
+            removeAppointment(a);
+        }
+
         persons.remove(person);
         personMap.remove(person.getId());
     }
@@ -202,9 +217,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removeAppointment(Appointment key) {
-        appointments.remove(key);
-        appointmentMap.remove(key.getId());
+    public void removeAppointment(Appointment a) {
+        appointments.remove(a);
+        appointmentMap.remove(a.getId());
     }
 
     /**
