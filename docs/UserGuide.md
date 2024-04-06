@@ -40,9 +40,9 @@ If you encounter any issues running RapidTracer, you may refer to the detailed b
 The clinical workflow is separated into three steps with RapidTracer:
 1. [Registering patients and appointments](#patient-in-processing)
 2. [Searching existing records](#searching-records)
-3. [Editing and deleting records](#editing-records)
-
-For features which don't fall into the above categories, refer [here](#general-help).
+3. [Tracing contacts](#trace)
+4. [Editing and deleting records](#editing-records)
+5. [General help](#general-help)
 
 <h3 id="patient-in-processing" style="color: #088F8F">
   Registering patients and appointments
@@ -72,7 +72,7 @@ Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG]`
 
 You can schedule appointments for existing patients using the `addappt` command.
 
-Format: `addappt INDEX d/DATE`
+Format: `addappt INDEX d/DATE_TIME`
 
 - Adds an appointment to the contact at the specified INDEX.
 - INDEX is a positive integer displayed on the screen.
@@ -89,7 +89,7 @@ Format: `addappt INDEX d/DATE`
 
 For walk-in appointments, you can also create a new contact and add an appointment with a single command. This command automatically creates an appointment linked to the patient which is being added.
 
-Format: `add n/NAME p/PHONE_NUMBER d/DATE_TIME [a/ADDRESS] [t/TAG]`
+Format: `add n/NAME p/PHONE_NUMBER d/DATE_TIME [a/ADDRESS] [t/TAG] [d/DATE_TIME]`
 
 <box type="info" seamless>
   <b>Remark:</b> This `add` command is the same as the one above, but with an extra field (the `DATE_TIME`).
@@ -134,7 +134,10 @@ Format: `export`
   Searching existing records
 </h3>
 
-RapidTracer offers search functions for both patient and appointment data. Beyond searching for specific patients and appointments, RapidTracer offers a list view to see all patient and appointment records.
+RapidTracer offers search functions for both patient and appointment data. Beyond searching for specific patients and appointments, RapidTracer offers a list view to see all patient and appointment records. To reset the list view in both patient and appointment records, simply press the "Reset" button next to the search bar.
+
+<img src="images/userguide/reset.png" style="width: 50%;">
+<p></p>
 
 <h4 id="find" style="color: #7393B3">
   Searching for contacts: `find`
@@ -305,13 +308,15 @@ To properly exit RapidTracer, click the `File` option in the top left corner and
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the app will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 
+2. **Overlapping appointments between different patients** is allowed currently because we are working with the assumption that there are more than 1 doctor at the clinic to attend to different patients. In the future we plan to allow 
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
 
 Action     | Format | Examples
 -----------|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------
-Add contacts | `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG]` | `add n/Min Rei p/86615076`,<br> `add n/Min Rei p/86615076 a/UTown RC4`,<br> `add n/Min Rei p/86615076 d/27/03/2024 2pm-3pm`
+Add contacts | `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG] [d/DATE_TIME]` | `add n/Min Rei p/86615076`,<br> `add n/Min Rei p/86615076 a/UTown RC4`,<br> `add n/Min Rei p/86615076 d/27/03/2024 2pm-3pm`
 Add appointments | `addappt INDEX d/DATE_TIME` | `addappt 1 d/27/03/2024 9am-10am`,<br> `addappt 1 d/today 9am-10am`,<br> `addappt 1 d/tdy 9am-10am`
 Find contacts | `find KEYWORD [MORE_KEYWORDS]` | `find Min Rei`,<br> `find rc4`
 Find appointments | `findappt KEYWORD [MORE_KEYWORDS]` | `findappt Min Rei`
@@ -319,6 +324,6 @@ List all contacts | `list` |
 List all appointments | `listappt` |
 Trace contacts | `trace INDEX` | `trace 1`
 Editing contacts | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [t/TAG]` | `edit 1 n/Seah Min Rei`
-Editing appointments | `editappt INDEX d/DATE_TIME` | `editappt 1 30/12/2024 8am-9am`
+Editing appointments | `editappt INDEX d/DATE_TIME` | `editappt 1 d/30/12/2024 8am-9am`
 Help | `help` |
 Exit application | `exit` |

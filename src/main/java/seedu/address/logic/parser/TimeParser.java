@@ -50,7 +50,7 @@ public class TimeParser {
         if (matchToday.matches()) {
             LocalDate today = LocalDate.now();
             String todayString = today.format(DATE_FORMAT);
-            return new AppointmentTime(todayString + args.substring(5));
+            return new AppointmentTime(todayString + args.split(" ")[1]);
         }
 
         return new AppointmentTime(args);

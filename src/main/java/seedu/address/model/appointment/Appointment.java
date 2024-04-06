@@ -55,6 +55,7 @@ public class Appointment implements Comparable<Appointment> {
     public String getAppointmentTimeString() {
         return appointmentTime.toString();
     }
+
     public String getAppointmentTimeStringForJson() {
         return appointmentTime.getFormattedDateTime();
     }

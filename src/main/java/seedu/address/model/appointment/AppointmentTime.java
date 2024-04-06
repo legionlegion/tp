@@ -23,7 +23,7 @@ public class AppointmentTime implements Comparable<AppointmentTime> {
      */
     public AppointmentTime(String time) {
         String dateString = time.substring(0, 10); // first 10 chars is the date
-        String rawTimings = time.substring(11);
+        String rawTimings = time.substring(10);
         String[] timings = rawTimings.toUpperCase().split("-"); // each time will be "AM" or "PM" now
         String startTime = timings[0].trim();
         String endTime = timings[1].trim();
