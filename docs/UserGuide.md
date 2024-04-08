@@ -193,6 +193,7 @@ Format: `listappt`
 
 Performs contact tracing to the selected appointment.
 Shows a list of appointments in RapidTracer that overlaps with the selected appointment.
+Any appointments that are within 5min before the start time and 5min after the end time are also considered overlapping.
 Shows a list of persons that attended those appointments.
 
 Format: `trace INDEX`
