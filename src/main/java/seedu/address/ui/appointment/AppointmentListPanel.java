@@ -25,7 +25,6 @@ public class AppointmentListPanel extends UiPart<Region> {
 
     private final MainWindow mainWindow;
 
-    private final ObservableList<Person> personList;
 
     @FXML
     private ListView<Appointment> appointmentListView;
@@ -44,7 +43,6 @@ public class AppointmentListPanel extends UiPart<Region> {
         super(FXML);
         this.logic = logic;
         this.mainWindow = mainWindow;
-        this.personList = personList;
         appointmentListView.setItems(appointmentList);
         appointmentListView.setCellFactory(listView -> new AppointmentListViewCell());
 
