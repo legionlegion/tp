@@ -24,6 +24,7 @@ public class AppointmentListPanel extends UiPart<Region> {
 
     private final MainWindow mainWindow;
 
+
     @FXML
     private ListView<Appointment> appointmentListView;
 
@@ -61,5 +62,4 @@ public class AppointmentListPanel extends UiPart<Region> {
             }
         }
     }
-
 }
