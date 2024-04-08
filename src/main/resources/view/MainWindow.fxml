@@ -37,16 +37,16 @@
         </MenuBar>
 
         <HBox styleClass="pane-with-border" alignment="CENTER_LEFT" spacing="5">
-          <!-- Existing StackPane -->
-          <StackPane VBox.vgrow="NEVER" HBox.hgrow="ALWAYS" fx:id="commandBoxPlaceholder">
-            <padding>
-              <Insets top="5" right="10" bottom="5" left="10" />
-            </padding>
-            <!-- Contents of your StackPane -->
-          </StackPane>
+            <!-- Existing StackPane -->
+            <StackPane VBox.vgrow="NEVER" HBox.hgrow="ALWAYS" fx:id="commandBoxPlaceholder">
+                <padding>
+                    <Insets top="5" right="10" bottom="5" left="10" />
+                </padding>
+                <!-- Contents of your StackPane -->
+            </StackPane>
 
-          <!-- New Button -->
-          <Button text="Reset" onAction="#onClick" maxWidth="100.0" />
+            <!-- New Button -->
+            <Button text="Reset" onAction="#onClick" maxWidth="100.0" />
         </HBox>
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border" minHeight="100" prefHeight="100" maxHeight="100">
