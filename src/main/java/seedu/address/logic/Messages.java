@@ -13,6 +13,12 @@ import seedu.address.model.person.Person;
  */
 public class Messages {
 
+    public static final String MESSAGE_LONG_NAME = "Name too long, should be < 50 characters!";
+    public static final String MESSAGE_LONG_PHONE = "Phone too long, should be <50 characters!";
+    public static final String MESSAGE_LONG_ADDRESS = "Address too long, should be <50 characters!";
+    public static final String MESSAGE_SHORT_ADDRESS = "Address too short, should be >3 characters!";
+    public static final String MESSAGE_LONG_TAG = "Tag too long, should be <20 characters!";
+
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
 
