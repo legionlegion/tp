@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -40,6 +41,7 @@ public class EditAppointmentCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "Date needs to be edited.";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book.";
 
+    public static final String MESSAGE_END_BEFORE_START = "End time must be strictly after start time!";
     private final Index index;
     private final EditAppointmentDescriptor editAppointmentDescriptor;
 
@@ -78,6 +80,12 @@ public class EditAppointmentCommand extends Command {
             }
         }
 
+        LocalTime start = editAppointmentDescriptor.appointmentTime.getStartTime();
+        LocalTime end = editAppointmentDescriptor.appointmentTime.getEndTime();
+
+        if (!start.isBefore(end)) {
+            throw new CommandException(MESSAGE_END_BEFORE_START);
+        }
 
         if (model.hasAppointment(editedAppointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
