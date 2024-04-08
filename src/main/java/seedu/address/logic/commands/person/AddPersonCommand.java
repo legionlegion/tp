@@ -16,6 +16,8 @@ import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 
+import java.time.LocalTime;
+
 /**
  * Adds a person to the address book.
  */
@@ -41,6 +43,7 @@ public class AddPersonCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book";
 
+    public static final String MESSAGE_END_BEFORE_START = "End time must be strictly after start time!";
     private final Person toAdd;
     private Appointment appointmentToAdd;
 
@@ -68,14 +71,23 @@ public class AddPersonCommand extends Command {
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-        model.addPerson(toAdd);
 
         if (appointmentToAdd != null) {
+
+            LocalTime start = appointmentToAdd.getAppointmentTime().getStartTime();
+            LocalTime end = appointmentToAdd.getAppointmentTime().getEndTime();
+
+            if (!start.isBefore(end)) {
+                throw new CommandException(MESSAGE_END_BEFORE_START);
+            }
+
             if (model.hasAppointment(appointmentToAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
             model.addAppointment(appointmentToAdd);
         }
+
+        model.addPerson(toAdd);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatPerson(toAdd)));
     }
