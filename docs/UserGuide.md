@@ -163,6 +163,7 @@ Format: `findappt KEYWORD [MORE_KEYWORDS]`
 - Order of keywords does not matter.
 - Possible keyword types:
   - NAME
+  - ID
 
 <img src="images/userguide/findappt.png" style="width: 100%;">
 <p></p>
