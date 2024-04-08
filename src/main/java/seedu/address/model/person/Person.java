@@ -71,6 +71,10 @@ public class Person {
         return id;
     }
 
+    public UUID getIdString() {
+        return id;
+    }
+
     public Name getName() {
         return name;
     }

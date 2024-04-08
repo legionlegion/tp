@@ -93,7 +93,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     public void onClick(MouseEvent e) {
         if (e.getClickCount() == 2) {
-            String commandText = "findappt " + this.person.getName().fullName;
+            String commandText = "findappt " + this.person.getIdString();
             try {
                 mainWindow.executeCommand(commandText);
             } catch (CommandException | ParseException err) {

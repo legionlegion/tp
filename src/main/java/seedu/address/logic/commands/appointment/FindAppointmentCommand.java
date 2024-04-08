@@ -14,7 +14,7 @@ import seedu.address.model.appointment.AppointmentContainsKeywordsPredicate;
 
 /**
  * Finds and lists all appointments whose associated person's name contains any
- * of the argument keywords. Keyword matching is case insensitive.
+ * of the argument keywords, or their id matches. Keyword matching is case insensitive.
  */
 public class FindAppointmentCommand extends Command {
 
@@ -22,7 +22,7 @@ public class FindAppointmentCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds all appointments whose associated person's name contain any of "
-            + "the specified keywords and displays them as a list with index numbers.\n"
+            + "the specified keywords or their id matches. Displays them as a list with index numbers.\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
     private final Function<Model, AppointmentContainsKeywordsPredicate> predicateFunction;
