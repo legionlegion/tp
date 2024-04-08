@@ -65,6 +65,7 @@ Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG]`
 - Commands in [brackets] are optional parameters.
 - The name to be added “NAME” can only contain alphanumeric characters.
 - Parameters may be typed in any order.
+- If you want to add multiple tags, please use multiple "t/".
 
 <h4 id="addappt" style="color: #7393B3">
   Scheduling new appointments: `addappt`
@@ -83,6 +84,10 @@ Format: `addappt INDEX d/DATE_TIME`
   - `today 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
 
+<box type="info" seamless>
+  <b>Remark:</b> The addappt command allows the addition of appointments with a passed date/time. This functionality allows you to add an appointment for record purpose if you forget to add the appointment when the patient visits the clinic. 
+</box>
+
 <h4 id="add-with-appt" style="color: #7393B3">
   Managing walk-ins: `add`
 </h4>
@@ -98,6 +103,7 @@ Format: `add n/NAME p/PHONE_NUMBER d/DATE_TIME [a/ADDRESS] [t/TAG] [d/DATE_TIME]
 - Commands in [brackets] are optional parameters.
 - The name to be added “NAME” can only contain alphanumeric characters.
 - Parameters may be typed in any order.
+- If you want to add multiple tags, please use multiple "t/".
 - The format of "DATE_TIME" is `dd/mm/yyyy [x]am-[y]pm`. Examples of accepted "DATE_TIME":
   - `24/03/2024 10am-2pm`
   - `24/03/2024 10AM-2PM`
@@ -105,6 +111,7 @@ Format: `add n/NAME p/PHONE_NUMBER d/DATE_TIME [a/ADDRESS] [t/TAG] [d/DATE_TIME]
   - `today 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
 - Appointments cannot end on a different day from when they start.
+- You can add multiple appointments for one patient by using multiple "d/".
 
 <h4 id="add" style="color: #7393B3">
   Importing patient data: "import"
