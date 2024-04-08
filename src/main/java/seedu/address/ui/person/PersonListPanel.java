@@ -43,7 +43,8 @@ public class PersonListPanel extends UiPart<Region> {
 
         appointmentList.addListener((ListChangeListener<Appointment>) change -> {
             while (change.next()) {
-                if (change.wasAdded() || change.wasRemoved()) {
+                if (change.wasAdded() || change.wasPermutated() || change.wasRemoved() || change.wasReplaced()
+                        || change.wasUpdated()) {
                     personListView.refresh();
                 }
             }
