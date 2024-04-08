@@ -2,6 +2,7 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.DateTimeException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -84,7 +85,7 @@ public class MainApp extends Application {
                         + " populated with a sample AddressBook.");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (Exception e) {
+        } catch (DataLoadingException | NullPointerException | DateTimeException e) {
             logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
                     + "You must have edited the Json file. Will be starting with an empty AddressBook.");
             initialData = new AddressBook();
