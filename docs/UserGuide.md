@@ -31,18 +31,33 @@ This section covers the download and installation process for RapidTracer.
 4. Open a command terminal and navigate to the folder where `RapidTracer.jar` is located using the `cd FOLDER_NAME` command. Use the `java -jar RapidTracer.jar` command to start running RapidTracer.
    <img src="images/userguide/rapidtracerquickstart.png" style="width: 100%;">
 
-If you encounter any issues running RapidTracer, you may refer to the detailed bug fixing [here](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html).
+If you encounter any issues running RapidTracer, you may refer to the detailed bug fixing [here](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html). Note that RapidTracer is intended to be used in fullscreen and some text may not show if the display window is re-sized to the minimum size.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Using RapidTracer
 
 The clinical workflow is separated into three steps with RapidTracer:
+1. [Input parameters](#inputs)
 1. [Registering patients and appointments](#patient-in-processing)
 2. [Searching existing records](#searching-records)
 3. [Tracing contacts](#trace)
 4. [Editing and deleting records](#editing-records)
 5. [General help](#general-help)
+
+<h3 id="inputs" style="color: #088F8F">
+  Input parameters
+</h3>
+
+The table below lists all input parameters and their max length.
+Parameter     | Max Length | Min Length
+-----------|-----------------------------------------|-----------------|
+`INDEX` | N.A. | N.A.
+`d/DATE_TIME` | N.A. | N.A.
+`n/NAME` | 50 |  1
+`p/PHONE_NUMBER` | 20 | 3
+`a/ADDRESS` | 50 | 3
+`t/TAG` | 20 | 1
 
 <h3 id="patient-in-processing" style="color: #088F8F">
   Registering patients and appointments
@@ -89,7 +104,7 @@ Format: `addappt INDEX d/DATE_TIME`
 
 For walk-in appointments, you can also create a new contact and add an appointment with a single command. This command automatically creates an appointment linked to the patient which is being added.
 
-Format: `add n/NAME p/PHONE_NUMBER d/DATE_TIME [a/ADDRESS] [t/TAG] [d/DATE_TIME]`
+Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG] [d/DATE_TIME]`
 
 <box type="info" seamless>
   <b>Remark:</b> This `add` command is the same as the one above, but with an extra field (the `DATE_TIME`).
