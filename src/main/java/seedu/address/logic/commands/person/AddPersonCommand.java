@@ -85,10 +85,12 @@ public class AddPersonCommand extends Command {
             if (model.hasAppointment(appointmentToAdd)) {
                 throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
-            model.addAppointment(appointmentToAdd);
         }
 
         model.addPerson(toAdd);
+        if (appointmentToAdd != null) {
+            model.addAppointment(appointmentToAdd);
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.formatPerson(toAdd)));
     }
