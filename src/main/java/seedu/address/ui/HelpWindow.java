@@ -89,6 +89,10 @@ public class HelpWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    public void close() {
+        getRoot().close();
+    }
+
     /**
      * Copies the URL to the user guide to the clipboard.
      */
