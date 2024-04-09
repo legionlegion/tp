@@ -1,5 +1,6 @@
 package seedu.address.ui.appointment;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -24,24 +25,35 @@ public class AppointmentListPanel extends UiPart<Region> {
 
     private final MainWindow mainWindow;
 
-
     @FXML
     private ListView<Appointment> appointmentListView;
-
 
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      * Logic is injected because every update to {@code ObservableList<Appointment>}
-     * requires a corresponding call to get the updated list's appointments' associated
-     * Persons. This is because {@code ObservableList<Appointment>} does not have any
-     * relationship with {@code Person}.
+     * requires a corresponding call to get the updated list's appointments'
+     * associated Persons.
+     * This is because {@code ObservableList<Appointment>} does not have
+     * any relationship with {@code Person}.
+     * {@code appointmentListView} also updates whenever changes are made to
+     * {@code personList}.
      */
-    public AppointmentListPanel(Logic logic, ObservableList<Appointment> appointmentList, MainWindow mainWindow) {
+    public AppointmentListPanel(Logic logic, ObservableList<Person> personList,
+            ObservableList<Appointment> appointmentList, MainWindow mainWindow) {
         super(FXML);
         this.logic = logic;
         this.mainWindow = mainWindow;
         appointmentListView.setItems(appointmentList);
         appointmentListView.setCellFactory(listView -> new AppointmentListViewCell());
+
+        personList.addListener((ListChangeListener<Person>) change -> {
+            while (change.next()) {
+                if (change.wasAdded() || change.wasPermutated() || change.wasRemoved() || change.wasReplaced()
+                        || change.wasUpdated()) {
+                    appointmentListView.refresh();
+                }
+            }
+        });
     }
 
     /**
