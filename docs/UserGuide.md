@@ -31,18 +31,33 @@ This section covers the download and installation process for RapidTracer.
 4. Open a command terminal and navigate to the folder where `RapidTracer.jar` is located using the `cd FOLDER_NAME` command. Use the `java -jar RapidTracer.jar` command to start running RapidTracer.
    <img src="images/userguide/rapidtracerquickstart.png" style="width: 100%;">
 
-If you encounter any issues running RapidTracer, you may refer to the detailed bug fixing [here](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html).
+If you encounter any issues running RapidTracer, you may refer to the detailed bug fixing [here](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html). Note that RapidTracer is intended to be used in fullscreen and some text may not show if the display window is re-sized to the minimum size.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Using RapidTracer
 
 The clinical workflow is separated into three steps with RapidTracer:
+1. [Input parameters](#inputs)
 1. [Registering patients and appointments](#patient-in-processing)
 2. [Searching existing records](#searching-records)
 3. [Tracing contacts](#trace)
 4. [Editing and deleting records](#editing-records)
 5. [General help](#general-help)
+
+<h3 id="inputs" style="color: #088F8F">
+  Input parameters
+</h3>
+
+The table below lists all input parameters and their max length.
+Parameter     | Max Length | Min Length
+-----------|-----------------------------------------|-----------------|
+`INDEX` | N.A. | N.A.
+`d/DATE_TIME` | N.A. | N.A.
+`n/NAME` | 50 |  1
+`p/PHONE_NUMBER` | 20 | 3
+`a/ADDRESS` | 50 | 3
+`t/TAG` | 20 | 1
 
 <h3 id="patient-in-processing" style="color: #088F8F">
   Registering patients and appointments
@@ -65,6 +80,7 @@ Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG]`
 - Commands in [brackets] are optional parameters.
 - The name to be added “NAME” can only contain alphanumeric characters.
 - Parameters may be typed in any order.
+- If you want to add multiple tags, please use multiple "t/".
 
 <h4 id="addappt" style="color: #7393B3">
   Scheduling new appointments: `addappt`
@@ -83,13 +99,17 @@ Format: `addappt INDEX d/DATE_TIME`
   - `today 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
 
+<box type="info" seamless>
+  <b>Remark:</b> The addappt command allows the addition of appointments with a passed date/time. This functionality allows you to add an appointment for record purpose if you forget to add the appointment when the patient visits the clinic. 
+</box>
+
 <h4 id="add-with-appt" style="color: #7393B3">
   Managing walk-ins: `add`
 </h4>
 
 For walk-in appointments, you can also create a new contact and add an appointment with a single command. This command automatically creates an appointment linked to the patient which is being added.
 
-Format: `add n/NAME p/PHONE_NUMBER d/DATE_TIME [a/ADDRESS] [t/TAG] [d/DATE_TIME]`
+Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG] [d/DATE_TIME]`
 
 <box type="info" seamless>
   <b>Remark:</b> This `add` command is the same as the one above, but with an extra field (the `DATE_TIME`).
@@ -98,6 +118,7 @@ Format: `add n/NAME p/PHONE_NUMBER d/DATE_TIME [a/ADDRESS] [t/TAG] [d/DATE_TIME]
 - Commands in [brackets] are optional parameters.
 - The name to be added “NAME” can only contain alphanumeric characters.
 - Parameters may be typed in any order.
+- If you want to add multiple tags, please use multiple "t/".
 - The format of "DATE_TIME" is `dd/mm/yyyy [x]am-[y]pm`. Examples of accepted "DATE_TIME":
   - `24/03/2024 10am-2pm`
   - `24/03/2024 10AM-2PM`
@@ -105,6 +126,7 @@ Format: `add n/NAME p/PHONE_NUMBER d/DATE_TIME [a/ADDRESS] [t/TAG] [d/DATE_TIME]
   - `today 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
 - Appointments cannot end on a different day from when they start.
+- You can add multiple appointments for one patient by using multiple "d/".
 
 <h4 id="add" style="color: #7393B3">
   Importing patient data: "import"
@@ -166,6 +188,7 @@ Format: `findappt KEYWORD [MORE_KEYWORDS]`
 - Order of keywords does not matter.
 - Possible keyword types:
   - NAME
+  - ID
 
 <img src="images/userguide/findappt.png" style="width: 100%;">
 <p></p>
@@ -193,6 +216,7 @@ Format: `listappt`
 
 Performs contact tracing to the selected appointment.
 Shows a list of appointments in RapidTracer that overlaps with the selected appointment.
+Any appointments that are within 5min before the start time and 5min after the end time are also considered overlapping.
 Shows a list of persons that attended those appointments.
 
 Format: `trace INDEX`

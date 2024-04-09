@@ -39,8 +39,10 @@ public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports patient contacts from a given csv file"
-            + "Parameters: FILEPATH...\n"
-            + "Example: " + COMMAND_WORD + PREFIX_IMPORT + "./data/patient.csv";
+            + "Parameters: "
+            + PREFIX_IMPORT + " FILEPATH...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_IMPORT + "./data/patient.csv";
 
     public static final String MESSAGE_SUCCESS = "Imported patient contact from: %1$s";
     public static final String MESSAGE_LOADING_ERROR = "Import failed due to data loading error. Please try again.";

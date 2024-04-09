@@ -46,20 +46,16 @@ public class AppointmentContainsKeywordsPredicate implements Predicate<Appointme
 
     /**
      * Current implementation just tests that the {@code Appointment}'s associated
-     * {@code Person}'s name matches.
-     * TODO: implement matching that somehow distinguishes between appointmentTime
-     * and person name. This could be done with d/.
+     * {@code Person}'s name or id matches.
      */
     @Override
     public boolean test(Appointment appointment) {
-        // If name matches, and appointment matches, return their intersection
-
-        // If no name matches, then return appointment matches
-
-        // If no appointment matches, then return name matches
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(
-                        model.getPersonById(appointment.getPersonId()).getName().fullName, keyword));
+                        model.getPersonById(
+                                appointment.getPersonId()).getName().fullName,
+                        keyword)
+                        || appointment.getPersonIdString().equals(keyword));
     }
 
     @Override

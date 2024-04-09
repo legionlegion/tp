@@ -35,6 +35,7 @@ public class AddAppointmentCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New appointment added for %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book";
 
+    public static final String MESSAGE_END_BEFORE_START = "End time must be strictly after start time!";
     private final Index index; // Index of person card to link appointment
     private final AppointmentTime appointmentTime;
 
@@ -64,6 +65,10 @@ public class AddAppointmentCommand extends Command {
         Person personToAddAppointmentFor = lastShownPersonList.get(index.getZeroBased());
         UUID personId = personToAddAppointmentFor.getId();
         String personName = personToAddAppointmentFor.getName().fullName;
+
+        if (!appointmentTime.getStartTime().isBefore(appointmentTime.getEndTime())) {
+            throw new CommandException(MESSAGE_END_BEFORE_START);
+        }
 
         Appointment appointmentToAdd = new Appointment(personId, appointmentTime);
 

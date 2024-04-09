@@ -1,6 +1,11 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_LONG_ADDRESS;
+import static seedu.address.logic.Messages.MESSAGE_LONG_NAME;
+import static seedu.address.logic.Messages.MESSAGE_LONG_PHONE;
+import static seedu.address.logic.Messages.MESSAGE_LONG_TAG;
+import static seedu.address.logic.Messages.MESSAGE_SHORT_ADDRESS;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -48,6 +53,9 @@ public class ParserUtil {
         if (!Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
+        if (name.length() > 50) {
+            throw new ParseException(MESSAGE_LONG_NAME);
+        }
         return new Name(trimmedName);
     }
 
@@ -62,6 +70,9 @@ public class ParserUtil {
         String trimmedPhone = phone.trim();
         if (!Phone.isValidPhone(trimmedPhone)) {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+        }
+        if (phone.length() > 20) {
+            throw new ParseException(MESSAGE_LONG_PHONE);
         }
         return new Phone(trimmedPhone);
     }
@@ -78,6 +89,12 @@ public class ParserUtil {
         if (!Address.isValidAddress(trimmedAddress)) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
+        if (address.length() > 50) {
+            throw new ParseException(MESSAGE_LONG_ADDRESS);
+        }
+        if (address.length() < 3) {
+            throw new ParseException(MESSAGE_SHORT_ADDRESS);
+        }
         return new Address(trimmedAddress);
     }
 
@@ -93,6 +110,9 @@ public class ParserUtil {
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
+        if (tag.length() > 20) {
+            throw new ParseException(MESSAGE_LONG_TAG);
+        }
         return new Tag(trimmedTag);
     }
 
@@ -103,6 +123,9 @@ public class ParserUtil {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
+            if (tagName.length() > 20) {
+                throw new ParseException(MESSAGE_LONG_TAG);
+            }
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
