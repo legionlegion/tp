@@ -118,7 +118,7 @@ Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG] [d/DATE_TIME]`
 - Commands in [brackets] are optional parameters.
 - The name to be added “NAME” can only contain alphanumeric characters.
 - Parameters may be typed in any order.
-- If you want to add multiple tags, please use multiple "t/".
+- If you want to add multiple tags, please use multiple `t/`.
 - The format of "DATE_TIME" is `dd/mm/yyyy [x]am-[y]pm`. Examples of accepted "DATE_TIME":
   - `24/03/2024 10am-2pm`
   - `24/03/2024 10AM-2PM`
@@ -126,7 +126,7 @@ Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG] [d/DATE_TIME]`
   - `today 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
 - Appointments cannot end on a different day from when they start.
-- You can add multiple appointments for one patient by using multiple "d/".
+- If you try to add multiple appointments by using multiple `d/` in one single `add` command, only the appointment with the last specified `DATE_TIME` will be booked. 
 
 <h4 id="add" style="color: #7393B3">
   Importing patient data: "import"
@@ -146,7 +146,7 @@ Format: `import i/./data/FILENAME.csv`
 
 <box type="info" seamless>
   <b>Remark:</b> You should avoid empty lines in the csv file you want to import.
-Pre-existing patients in the address book will not be imported again.
+Pre-existing patients(identified by same name and phone number) in the address book will not be imported again.
 </box>
 
 <h4 id="add" style="color: #7393B3">
@@ -157,9 +157,13 @@ You can export existing patient data to a csv file stored in a specific location
 
 Format: `export`
 
-- Create a directory named `RapidTracerData` within the file where RapidTracer is launched.
+- Create a directory named `RapidTracerData` in the folder where RapidTracer is launched.
 - Create a new csv file named `PatientData.csv` in the `RapidTracerData` directory.
 - The pre-existed data in the csv file will be overwritten once you perform the export action.
+
+<box type="info" seamless>
+  <b>Remark:</b> If you execute the export command without creating the RapidTracerData directory and PatientData.csv file, the directory and file will be automatically generated in the folder where RapidTracer is launched.
+</box>
 
 <h3 id="searching-records" style="color: #088F8F">
   Searching existing records
