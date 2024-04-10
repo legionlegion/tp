@@ -12,9 +12,12 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
@@ -30,6 +33,11 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.person.AddPersonCommandParser;
 import seedu.address.model.Model;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
 
 /**
  * Import data from a csv file to the address book.
@@ -61,7 +69,7 @@ public class ImportCommand extends Command {
 
     /**
      * The ImportCommand object takes in a specified file.
-     * @param filePath the absolute path of the file
+     * @param filePath the absolute/relative path of the file
      */
     public ImportCommand(Path filePath) {
         requireNonNull(filePath);
@@ -81,12 +89,15 @@ public class ImportCommand extends Command {
         try {
             List<Map<String, String>> data = readFile();
             for (Map<String, String> patientDetail : data) {
-                try {
-                    String addPersonCommandInput = convertToAddPersonCommandInput(patientDetail);
-                    AddPersonCommand addPersonCommand = parseAddPersonCommand(addPersonCommandInput);
-                    addPersonCommand.execute(model);
-                } catch (ParseException e) {
-                    throw new CommandException(MESSAGE_FORMAT_ERROR);
+                Person person = createPersonFromMap(patientDetail);
+                if (!model.hasPerson(person)) {
+                    try {
+                        String addPersonCommandInput = convertToAddPersonCommandInput(patientDetail);
+                        AddPersonCommand addPersonCommand = parseAddPersonCommand(addPersonCommandInput);
+                        addPersonCommand.execute(model);
+                    } catch (ParseException e) {
+                        throw new CommandException(MESSAGE_FORMAT_ERROR);
+                    }
                 }
             }
         } catch (DataLoadingException e) {
@@ -121,6 +132,32 @@ public class ImportCommand extends Command {
         }
     }
 
+    /**
+     * Creates a Person object from a given line of patientDetail. The person is checked against the PersonList
+     * and will be skipped if the person already exists in the list.
+     * @return a person created from the list.
+     */
+    public Person createPersonFromMap(Map<String, String> patientDetail) {
+        String nameStr = patientDetail.get("name");
+        String phoneStr = patientDetail.get("phone");
+        String addressStr = patientDetail.get("address");
+        String tagsStr = patientDetail.get("tags");
+
+        // Parse tags from string to set of Tag objects
+        Set<Tag> tags = Arrays.stream(tagsStr.split(";"))
+                .map(String::trim)
+                .filter(tag -> !tag.isEmpty())
+                .map(Tag::new)
+                .collect(Collectors.toSet());
+
+        // Create Name, Phone, and Address objects
+        Name name = new Name(nameStr);
+        Phone phone = new Phone(phoneStr);
+        Address address = new Address(addressStr);
+
+        // Create and return a new Person object
+        return new Person(name, phone, address, tags);
+    }
     /**
      * Converts a map of patient data to a string that can be parsed by the addPersonCommandParser
      * @param patientDetail

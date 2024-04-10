@@ -118,7 +118,7 @@ Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG] [d/DATE_TIME]`
 - Commands in [brackets] are optional parameters.
 - The name to be added “NAME” can only contain alphanumeric characters.
 - Parameters may be typed in any order.
-- If you want to add multiple tags, please use multiple "t/".
+- If you want to add multiple tags, please use multiple `t/`.
 - The format of "DATE_TIME" is `dd/mm/yyyy [x]am-[y]pm`. Examples of accepted "DATE_TIME":
   - `24/03/2024 10am-2pm`
   - `24/03/2024 10AM-2PM`
@@ -126,20 +126,28 @@ Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG] [d/DATE_TIME]`
   - `today 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
 - Appointments cannot end on a different day from when they start.
-- You can add multiple appointments for one patient by using multiple "d/".
+- If you try to add multiple appointments by using multiple `d/` in one single `add` command, only the appointment with the last specified `DATE_TIME` will be booked. 
 
 <h4 id="add" style="color: #7393B3">
   Importing patient data: "import"
 </h4>
 
-You can import patient data from a csv file.The csv file should be formatted in a way that it only contains 4 columns with specific headings as shown below.
+You can import patient data from a csv file.
 
-![img_1.png](img_1.png)
+![img_3.png](img_3.png)
 
-Format: `import i/filepath`
+Format: `import i/./data/FILENAME.csv`
 
-- The filepath should be an absolute file directory path plus the file name.
-- You should avoid empty lines in the csv file you want to import.
+- The csv file should be formatted in a way that it only contains 4 columns with specific headings as shown above.
+- If you want to add multiple tags for the same person, please use ";" to separate the tags.
+- Please save your patient data file under the `data` directory created when you launch RapidTracer in an empty file.
+- Enter the command stated above with "FILENAME" replaced by the name of csv file you have.
+  ![img_5.png](img_5.png)
+
+<box type="info" seamless>
+  <b>Remark:</b> You should avoid empty lines in the csv file you want to import.
+Pre-existing patients(identified by same name and phone number) in the address book will not be imported again.
+</box>
 
 <h4 id="add" style="color: #7393B3">
   Exporting patient data: "export"
@@ -149,8 +157,13 @@ You can export existing patient data to a csv file stored in a specific location
 
 Format: `export`
 
-- Please create a directory named "RapidTracerData" and create a new csv file named "PatientData" in the directory.
+- Create a directory named `RapidTracerData` in the folder where RapidTracer is launched.
+- Create a new csv file named `PatientData.csv` in the `RapidTracerData` directory.
 - The pre-existed data in the csv file will be overwritten once you perform the export action.
+
+<box type="info" seamless>
+  <b>Remark:</b> If you execute the export command without creating the RapidTracerData directory and PatientData.csv file, the directory and file will be automatically generated in the folder where RapidTracer is launched.
+</box>
 
 <h3 id="searching-records" style="color: #088F8F">
   Searching existing records
