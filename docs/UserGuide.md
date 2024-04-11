@@ -50,14 +50,14 @@ The clinical workflow is separated into three steps with RapidTracer:
 </h3>
 
 The table below lists all input parameters and their max length.
-Parameter     | Max Length | Min Length
------------|-----------------------------------------|-----------------|
-`INDEX` | N.A. | N.A.
-`d/DATE_TIME` | N.A. | N.A.
-`n/NAME` | 50 |  1
-`p/PHONE_NUMBER` | 20 | 3
-`a/ADDRESS` | 50 | 3
-`t/TAG` | 20 | 1
+Parameter     | Max Length | Min Length | Remarks
+-----------|-----------------------------------------|-----------------|----------|
+`INDEX` | N.A. | N.A. | Positive integer
+`d/DATE_TIME` | N.A. | N.A. | Between 6 Feb 1819 and 1 Jan 2101
+`n/NAME` | 50 |  1 | Alphanumeric characters only
+`p/PHONE_NUMBER` | 20 | 3 |
+`a/ADDRESS` | 50 | 3 |
+`t/TAG` | 20 | 1 |
 
 <h3 id="patient-in-processing" style="color: #088F8F">
   Registering patients and appointments
@@ -75,7 +75,8 @@ There are three ways you can register new patients and schedule new appointments
 
 You can add new patients to our database with the `add` command. Each patient must minimally have a name and a phone number for administrative purposes.
 
-Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG]`
+Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG]` <br>
+Example(s): `add n/Min Rei p/87654321`, `add n/Min Rei p/87654321 a/UTown`, `add n/Min Rei p/87654321 t/COVID`
 
 - Commands in [brackets] are optional parameters.
 - The name to be added “NAME” can only contain alphanumeric characters.
@@ -88,7 +89,8 @@ Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG]`
 
 You can schedule appointments for existing patients using the `addappt` command.
 
-Format: `addappt INDEX d/DATE_TIME`
+Format: `addappt INDEX d/DATE_TIME` <br>
+Example(s): `add 1 d/today 3pm-4pm`, `add 1 d/16/10/2024 3pm-4pm`
 
 - Adds an appointment to the contact at the specified INDEX.
 - INDEX is a positive integer displayed on the screen.
@@ -109,7 +111,8 @@ Format: `addappt INDEX d/DATE_TIME`
 
 For walk-in appointments, you can also create a new contact and add an appointment with a single command. This command automatically creates an appointment linked to the patient which is being added.
 
-Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG] [d/DATE_TIME]`
+Format: `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG] [d/DATE_TIME]` <br>
+Example(s): `add 1 n/Boyd Anderson p/87654321 d/tdy 11am-12pm`
 
 <box type="info" seamless>
   <b>Remark:</b> This `add` command is the same as the one above, but with an extra field (the `DATE_TIME`).
@@ -252,7 +255,8 @@ In the event that patients update their contact details or reschedule an appoint
 
 An existing patient's details can be updated in RapidTracer using the `edit` command. This does not deal with user appointments.
 
-Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [t/TAG]`
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [t/TAG]` <br>
+Example(s): `edit 1 p/12345678`, `edit 1 a/NUS UTown`
 
 - Edits the contact at the specified INDEX.
 - INDEX is a positive integer that is currently displayed on the screen.
@@ -266,7 +270,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [t/TAG]`
 
 An appointment can be rescheduled with the `editappt` command to change the date and time of the appointment.
 
-Format: `editappt INDEX d/DATE_TIME`
+Format: `editappt INDEX d/DATE_TIME` <br>
+Example(s): `editappt 1 d/tdy 5pm-6pm`
 
 - INDEX is a positive integer that is currently displayed on the screen.
 - Only one INDEX can be edited at a time.
@@ -328,13 +333,13 @@ To properly exit RapidTracer, click the `File` option in the top left corner and
 ## FAQ
 
 **Q**: How do I upload records into RapidTracer?<br>
-**A**: This feature is currently under development!
+**A**: Use the `import` command!
 
 **Q**: How do I download all my records from RapidTracer?<br>
-**A**: This feature is currently under development!
+**A**: Use the `export` command!
 
 **Q**: A command is not working, what am I doing wrong?<br>
-**A**: There's a chance that the feature is still under development. We will fix it!
+**A**: You can refer to the user guide above. If you're still having issues, please drop us an email at minrei.seah@u.nus.edu to let us know what's wrong.
 
 **Q**: I still have an unanswered question!<br>
 **A**: Please drop us an email at minrei.seah@u.nus.edu
@@ -345,7 +350,7 @@ To properly exit RapidTracer, click the `File` option in the top left corner and
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the app will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 
-2. **Overlapping appointments between different patients** is allowed currently because we are working with the assumption that there are more than 1 doctor at the clinic to attend to different patients. In the future we plan to allow 
+2. **Overlapping appointments between different patients** is allowed currently because we are working with the assumption that there are multiple doctors at the clinic to attend to different patients.
 
 --------------------------------------------------------------------------------------------------------------------
 
