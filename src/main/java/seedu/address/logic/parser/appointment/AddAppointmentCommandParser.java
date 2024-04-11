@@ -39,7 +39,6 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                 + AddAppointmentCommand.MESSAGE_USAGE);
         }
 
-
         AppointmentTime appointmentTime;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
@@ -52,7 +51,7 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         try {
             appointmentTime = TimeParser.parse(argMultimap.getValue(PREFIX_DATE).get());
         } catch (ParseException pe) {
-            throw new ParseException("Invalid Date\n" + AddAppointmentCommand.MESSAGE_USAGE);
+            throw new ParseException(AddAppointmentCommand.MESSAGE_USAGE);
         }
 
         return new AddAppointmentCommand(index, appointmentTime);
