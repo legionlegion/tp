@@ -43,7 +43,8 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         AppointmentTime appointmentTime;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
-            throw new ParseException("Invalid Date\n" + AddAppointmentCommand.MESSAGE_USAGE);
+            throw new ParseException("Missing date and time of appointment to add!\n"
+                + AddAppointmentCommand.MESSAGE_USAGE);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATE);
