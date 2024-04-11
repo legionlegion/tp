@@ -149,21 +149,69 @@ public class TimeParserTest {
     }
 
     @Test
-    public void validAppointmentDate_success() {
-        assertTrue(1 + 1 == 2);
-        //assertTrue(TimeParser.validAppointmentDate("24/10/2024"));
+    public void nonDateInput_validAppointmentDate_failure() {
+        assertFalse(TimeParser.validAppointmentDate(""));
+        assertFalse(TimeParser.validAppointmentDate("Hello"));
+        assertFalse(TimeParser.validAppointmentDate(" "));
     }
 
     @Test
-    public void wrongDate_validAppointmentDate_failure() {
-        assertTrue(1 + 1 == 2);
-        //assertFalse(TimeParser.validAppointmentDate("32/10/2024"));
+    public void validAppointmentDate_success() {
+        // Edge cases
+        assertTrue(TimeParser.validAppointmentDate("06/02/1819"));
+        assertTrue(TimeParser.validAppointmentDate("07/02/1819"));
+        assertTrue(TimeParser.validAppointmentDate("1/1/2100"));
+        assertTrue(TimeParser.validAppointmentDate("31/12/2099"));
+
+        // Ends of months
+        assertTrue(TimeParser.validAppointmentDate("31/01/2024"));
+        assertTrue(TimeParser.validAppointmentDate("28/02/2024"));
+        assertTrue(TimeParser.validAppointmentDate("31/03/2024"));
+        assertTrue(TimeParser.validAppointmentDate("30/04/2024"));
+        assertTrue(TimeParser.validAppointmentDate("31/05/2024"));
+        assertTrue(TimeParser.validAppointmentDate("30/06/2024"));
+        assertTrue(TimeParser.validAppointmentDate("31/07/2024"));
+        assertTrue(TimeParser.validAppointmentDate("31/08/2024"));
+        assertTrue(TimeParser.validAppointmentDate("30/09/2024"));
+        assertTrue(TimeParser.validAppointmentDate("31/10/2024"));
+        assertTrue(TimeParser.validAppointmentDate("30/11/2024"));
+        assertTrue(TimeParser.validAppointmentDate("31/12/2024"));
+
+        // Leap years
+        assertTrue(TimeParser.validAppointmentDate("29/02/2024"));
+        assertTrue(TimeParser.validAppointmentDate("29/02/2028"));
+        assertTrue(TimeParser.validAppointmentDate("29/02/2032"));
+        assertTrue(TimeParser.validAppointmentDate("29/02/2020"));
+        assertTrue(TimeParser.validAppointmentDate("29/02/2016"));
     }
 
-    //@Test
-    //public void wrongFormat_validAppointmentDate_failure() {
-    //    assertFalse(TimeParser.validAppointmentDate("10/10/1818"));
-    //    assertFalse(TimeParser.validAppointmentDate("10/10/2040"));
-    //
-    //}
+    @Test
+    public void outOfRangeDate_validAppointmentDate_failure() {
+        // Too early
+        assertFalse(TimeParser.validAppointmentDate("05/02/1819"));
+        assertFalse(TimeParser.validAppointmentDate("04/02/1819"));
+        assertFalse(TimeParser.validAppointmentDate("31/12/1818"));
+
+        // Too late
+        assertFalse(TimeParser.validAppointmentDate("02/01/2100"));
+        assertFalse(TimeParser.validAppointmentDate("03/01/2100"));
+        assertFalse(TimeParser.validAppointmentDate("01/01/2101"));
+    }
+
+    @Test
+    public void nonexistentDate_validAppointmentDate_failure() {
+        // Non-leap years
+        assertFalse(TimeParser.validAppointmentDate("32/10/2024"));
+        assertFalse(TimeParser.validAppointmentDate("29/02/2023"));
+
+        // Weird dates
+        assertFalse(TimeParser.validAppointmentDate("00/01/2023"));
+        assertFalse(TimeParser.validAppointmentDate("01/13/2023"));
+    }
+
+    @Test
+    public void wrongFormat_validAppointmentDate_failure() {
+        assertFalse(TimeParser.validAppointmentDate("1/10/1818"));
+        assertFalse(TimeParser.validAppointmentDate("10/10/2100"));
+    }
 }

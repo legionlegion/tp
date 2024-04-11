@@ -21,7 +21,7 @@ public class TimeParser {
      * dd/MM/yyyy [x]am-[y]pm
      */
     private static final Pattern DAY =
-            Pattern.compile("(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[012])\\/(2[0-9]{3})");
+            Pattern.compile("[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]");
     private static final Pattern TODAY = Pattern.compile("(?i)(today|tdy)");
     private static final Pattern HOUR = Pattern.compile("([1-9]|1[0-2])(?i)[ap]m");
     private static final Pattern HOUR_WINDOW = Pattern.compile(HOUR + "([ ]?-[ ]?)" + HOUR);
@@ -60,7 +60,7 @@ public class TimeParser {
                 } else {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeParser.MESSAGE_USAGE));
                 }
-            } else if (uppercaseAppointmentTime.startsWith("TDY")) {
+            } else if (uppercaseAppointmentTime.startsWith("TDY")) { // Format: tdy time
                 if (validAppointmentWindow(uppercaseAppointmentTime.substring(4))) {
                     LocalDate today = LocalDate.now();
                     String todayString = today.format(DATE_FORMAT);
@@ -69,6 +69,10 @@ public class TimeParser {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeParser.MESSAGE_USAGE));
                 }
             }
+        }
+
+        if (!validAppointmentDate(args.substring(0, 10))) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TimeParser.MESSAGE_USAGE));
         }
 
         return new AppointmentTime(args);
@@ -111,22 +115,20 @@ public class TimeParser {
     }
 
     /**
-     * Fill in later.
+     * Checks whether the date is in dd/MM/yyyy format and is within a valid window.
      *
      * @return boolean
      */
     public static boolean validAppointmentDate(String args) {
+        assert args != null;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf.setLenient(false);
         try {
             Date date = sdf.parse(args);
-            System.out.println(date.after(sdf.parse("06/02/1819")));
-            if (date.after(sdf.parse("06/02/1819"))) {
-                System.out.println("neigh");
+            if (date.before(sdf.parse("06/02/1819"))) {
                 return false;
             }
-            if (date.before(sdf.parse("01/01/2100"))) {
-                System.out.println("yay");
+            if (date.after(sdf.parse("01/01/2100"))) {
                 return false;
             }
             return true;
