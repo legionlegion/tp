@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.person.DeletePersonCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -24,7 +23,7 @@ import seedu.address.model.person.Person;
  * Contains integration tests (interaction with the Model) and unit tests for
  * {@code DeleteCommand}.
  */
-public class DeleteCommandTest {
+public class DeletePersonCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
