@@ -181,8 +181,8 @@ public class ImportCommand extends Command {
             } else {
                 sb.append(prefixMap.get(key).getPrefix());
                 sb.append(patientDetail.get(key));
+                sb.append(" ");
             }
-            sb.append(" ");
         }
         return sb.toString();
     }
