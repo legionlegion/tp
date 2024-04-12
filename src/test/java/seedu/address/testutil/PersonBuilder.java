@@ -79,6 +79,14 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Id} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withId(String seed) {
+        this.id = UUID.nameUUIDFromBytes(seed.getBytes());
+        return this;
+    }
+
 
     /**
      * Builds a person object
