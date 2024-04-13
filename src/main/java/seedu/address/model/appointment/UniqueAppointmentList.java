@@ -1,4 +1,5 @@
 package seedu.address.model.appointment;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -12,14 +13,16 @@ import seedu.address.model.appointment.exceptions.DuplicateAppointmentsException
 import seedu.address.model.appointment.exceptions.OverlappingAppointmentsException;
 
 /**
- * A list of appointments that enforces uniqueness between its elements and does not allow nulls.
- * An appointment is considered unique by comparing using {@code Appointment#equals(Appointment)}.
+ * A list of appointments that enforces uniqueness between its elements and does
+ * not allow nulls.
+ * An appointment is considered unique by comparing using
+ * {@code Appointment#equals(Appointment)}.
  *
  */
 public class UniqueAppointmentList implements Iterable<Appointment> {
     private final ObservableList<Appointment> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Appointment> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+    private final ObservableList<Appointment> internalUnmodifiableList = FXCollections
+            .unmodifiableObservableList(internalList);
 
     /**
      * Checks if the list contains the specified appointment.
@@ -34,10 +37,12 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
-     * Checks if the person has any appointments that overlap with the specified appointment.
+     * Checks if the person has any appointments that overlap with the specified
+     * appointment.
      *
      * @param toCheck The appointment to check.
-     * @return True if the person has any appointments that overlap with the appointment, false otherwise.
+     * @return True if the person has any appointments that overlap with the
+     *         appointment, false otherwise.
      * @throws NullPointerException if the appointment to check is null.
      */
     public boolean overlap(Appointment toCheck) {
@@ -64,9 +69,11 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
-     * Replaces the appointment {@code target} in the list with {@code editedAppointment}.
+     * Replaces the appointment {@code target} in the list with
+     * {@code editedAppointment}.
      * {@code target} must exist in the list.
-     * The appointment identity of {@code editedAppointment} must not be the same as another existing appointment
+     * The appointment identity of {@code editedAppointment} must not be the same as
+     * another existing appointment
      * in the list.
      */
     public void setAppointment(Appointment target, Appointment editedAppointment) {
@@ -86,6 +93,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
 
     /**
      * Removes an appointment from the list.
+     *
      * @param toRemove The appointment to be removed.
      */
     public void remove(Appointment toRemove) {
@@ -109,6 +117,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
 
         internalList.setAll(appointments);
     }
+
     public void setAppointments(UniqueAppointmentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -122,7 +131,6 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     public ObservableList<Appointment> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
-
 
     /**
      * Returns an iterator over the elements in this list in proper sequence.
