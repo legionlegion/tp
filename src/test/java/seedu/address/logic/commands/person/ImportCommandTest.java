@@ -51,10 +51,12 @@ public class ImportCommandTest {
     }
 
     @Test
+
     public void execute_import_throwsCommandException() {
         ImportCommand importCommand = new ImportCommand(WRONG_FORMAT_FILE_PATH);
         assertThrows(CommandException.class, () -> importCommand.execute(model));
     }
+  
     @Test
     public void execute_createPersonFromMap_success() {
         Map<String, String> patientDetail = new HashMap<>();

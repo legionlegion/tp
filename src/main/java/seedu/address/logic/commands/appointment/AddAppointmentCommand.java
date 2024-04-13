@@ -65,10 +65,6 @@ public class AddAppointmentCommand extends Command {
         UUID personId = personToAddAppointmentFor.getId();
         String personName = personToAddAppointmentFor.getName().fullName;
 
-        if (!appointmentTime.getStartTime().isBefore(appointmentTime.getEndTime())) {
-            throw new CommandException(MESSAGE_END_BEFORE_START);
-        }
-
         Appointment appointmentToAdd = new Appointment(personId, appointmentTime);
 
         if (model.hasAppointment(appointmentToAdd)) {
