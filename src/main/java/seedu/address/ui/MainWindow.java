@@ -217,7 +217,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             executeCommand(commandText1);
             executeCommand(commandText2);
-            resultDisplay.setFeedbackToUser("Reset view");
+            resultDisplay.setFeedbackToUser("Both lists have been reset!");
         } catch (CommandException | ParseException err) {
             return;
         }
