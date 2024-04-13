@@ -189,6 +189,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if the internal list of appointments contains any appointments
+     * of the same person that overlaps with the specified appointment.
+     *
+     * @param appointment The appointment to check for existence.
+     * @return True if any overlapping appointment is found in the list, false otherwise.
+     * @throws NullPointerException if the given appointment is null.
+     */
+    public boolean hasOverlapAppointments(Appointment appointment) {
+        requireNonNull(appointment);
+        return appointments.overlap(appointment);
+    }
+
+    /**
      * Adds an appointment to the list of appointments.
      *
      * @param a The appointment to be added.
