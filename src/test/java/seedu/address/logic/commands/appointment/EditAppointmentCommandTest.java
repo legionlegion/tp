@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.appointment;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.appointment.AddAppointmentCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -23,9 +22,16 @@ import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TypicalPersons;
 
-public class AddAppointmentCommandTest {
-
+public class EditAppointmentCommandTest {
+    // TODO THIS ENTIRE THING
     private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void addAppointment_success() {
+        AppointmentTime appointmentTime = new AppointmentTime("10/04/2024 2PM-3PM");
+        Index index = Index.fromOneBased(10);
+        assertTrue(new AddAppointmentCommand(index, appointmentTime) instanceof AddAppointmentCommand);
+    }
 
     @Test
     public void execute_appointmentAcceptedByModel_addAppointmentSuccessful() {
@@ -59,10 +65,17 @@ public class AddAppointmentCommandTest {
     }
 
     @Test
-    public void addAppointment_success() {
+    public void execute_invalidPersonIndex_throwsCommandException() {
+        Person firstPerson = model.getAddressBook().getPersonList().get(0);
+        UUID personId = firstPerson.getId();
         AppointmentTime appointmentTime = new AppointmentTime("10/04/2024 2PM-3PM");
-        Index index = Index.fromOneBased(10);
-        assertTrue(new AddAppointmentCommand(index, appointmentTime) instanceof AddAppointmentCommand);
+        Appointment appointmentToAdd = new Appointment(personId, appointmentTime);
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(Index.fromOneBased(10000), appointmentTime);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addAppointment(appointmentToAdd);
+
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, () -> addAppointmentCommand.execute(expectedModel));
     }
 
     @Test
