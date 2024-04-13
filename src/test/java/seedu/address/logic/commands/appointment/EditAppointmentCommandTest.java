@@ -2,7 +2,6 @@ package seedu.address.logic.commands.appointment;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -14,7 +13,6 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -95,6 +93,24 @@ public class EditAppointmentCommandTest {
     }
 
     @Test
+    public void toString_editAppointmentDescriptor() {
+        EditAppointmentCommand.EditAppointmentDescriptor editAppointmentDescriptor = new EditAppointmentCommand.EditAppointmentDescriptor();
+        AppointmentTime appointmentTime = new AppointmentTime("10/04/2050 2PM-3PM");
+        editAppointmentDescriptor.setAppointmentTime(appointmentTime);
+
+        String expected = EditAppointmentCommand.EditAppointmentDescriptor.class.getCanonicalName() + "{appointment time=" + appointmentTime + "}";
+        assertEquals(expected, editAppointmentDescriptor.toString());
+    }
+
+    @Test
+    public void emptyToString_editAppointmentDescriptor() {
+        EditAppointmentCommand.EditAppointmentDescriptor emptyEditAppointmentDescriptor = new EditAppointmentCommand.EditAppointmentDescriptor();
+
+        String expected = EditAppointmentCommand.EditAppointmentDescriptor.class.getCanonicalName() + "{appointment time=null}";
+        assertEquals(expected, emptyEditAppointmentDescriptor.toString());
+    }
+
+    @Test
     public void addAppointment_success() {
         AppointmentTime appointmentTime = new AppointmentTime("10/04/2024 2PM-3PM");
         Index index = Index.fromOneBased(10);
@@ -147,20 +163,20 @@ public class EditAppointmentCommandTest {
     }
 
     @Test
-    public void constructor_editAppointmentCommand_nullIndex_throwsNullPointerException() {
+    public void constructorNullIndex_editAppointmentCommand_throwsNullPointerException() {
         EditAppointmentCommand.EditAppointmentDescriptor editAppointmentDescriptor = new EditAppointmentCommand.EditAppointmentDescriptor();
         editAppointmentDescriptor.setAppointmentTime(new AppointmentTime("10/04/2050 2PM-3PM"));
         assertThrows(NullPointerException.class, () -> new EditAppointmentCommand(null, editAppointmentDescriptor));
     }
 
     @Test
-    public void constructor_editAppointmentCommand_nullEditAppointmentDescriptor_throwsNullPointerException() {
+    public void constructorNullEditAppointmentDescriptor_editAppointmentCommand_throwsNullPointerException() {
         Index index = Index.fromOneBased(1);
         assertThrows(NullPointerException.class, () -> new EditAppointmentCommand(index, null));
     }
 
     @Test
-    public void constructor_editAppointmentCommand_allFieldsNull_throwsNullPointerException() {
+    public void constructorAllFieldsNull_editAppointmentCommand_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new EditAppointmentCommand(null, null));
     }
 
