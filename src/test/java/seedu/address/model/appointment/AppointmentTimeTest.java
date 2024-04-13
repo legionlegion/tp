@@ -1,5 +1,6 @@
 package seedu.address.model.appointment;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -8,7 +9,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
-
 
 public class AppointmentTimeTest {
     @Test
@@ -52,4 +52,36 @@ public class AppointmentTimeTest {
         // different values -> returns false
         assertFalse(appointmentTime.equals(new AppointmentTime("12/01/2024 2pm-5pm")));
     }
+
+    @Test
+    public void constructor_invalidTimeFormat_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new AppointmentTime("12/01/2024 12ppm-2ppm"));
+        assertThrows(IllegalArgumentException.class, () -> new AppointmentTime("12/01/2024 2am-3aam"));
+    }
+
+    @Test
+    public void getFormattedDateTime_formatsCorrectly() {
+        AppointmentTime morning = new AppointmentTime("12/01/2024 12am-1am");
+        assertEquals("12/01/2024 12am-1am", morning.getFormattedDateTime());
+
+        AppointmentTime noon = new AppointmentTime("12/01/2024 12pm-1pm");
+        assertEquals("12/01/2024 12pm-1pm", noon.getFormattedDateTime());
+
+        AppointmentTime evening = new AppointmentTime("12/01/2024 11pm-12am");
+        assertEquals("12/01/2024 11pm-12am", evening.getFormattedDateTime());
+    }
+
+    @Test
+    public void compareTo_correctOrdering() {
+        AppointmentTime early = new AppointmentTime("12/01/2024 2pm-4pm");
+        AppointmentTime late = new AppointmentTime("12/01/2024 6pm-8pm");
+        assertTrue(early.compareTo(late) > 0);
+        assertTrue(late.compareTo(early) < 0);
+
+        AppointmentTime earlierDate = new AppointmentTime("11/01/2024 2pm-4pm");
+        AppointmentTime laterDate = new AppointmentTime("13/01/2024 2pm-4pm");
+        assertTrue(earlierDate.compareTo(laterDate) > 0);
+        assertTrue(laterDate.compareTo(earlierDate) < 0);
+    }
+
 }

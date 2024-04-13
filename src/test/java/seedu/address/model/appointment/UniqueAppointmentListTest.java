@@ -143,8 +143,7 @@ public class UniqueAppointmentListTest {
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueAppointmentList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> uniqueAppointmentList.asUnmodifiableObservableList().remove(0));
     }
 
     @Test
@@ -157,6 +156,7 @@ public class UniqueAppointmentListTest {
         uniqueAppointmentList.add(APPT1);
         assertTrue(uniqueAppointmentList.equals(uniqueAppointmentList));
     }
+
     @Test
     public void equalsTrue() {
         uniqueAppointmentList.add(APPT1);
