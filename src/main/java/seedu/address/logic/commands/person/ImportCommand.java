@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,7 +22,6 @@ import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-import com.opencsv.exceptions.CsvException;
 
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.logic.commands.Command;
@@ -54,7 +52,8 @@ public class ImportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Imported patient contact from: %1$s";
     public static final String MESSAGE_LOADING_ERROR = "Import failed due to data loading error. \n"
-            + "Please make sure you have put the csv file under the data directory.";
+            + "Error occurs if the csv file is not put under the data directory \n"
+            + "or if there are missing entries in the csv file.";
     public static final String MESSAGE_FORMAT_ERROR = "Import failed due to format errors in the csv file. \n"
             + "Please make sure the csv file only contains name, phone, address and tags. \n"
             + "Please delete all empty lines in the csv file.";
@@ -96,7 +95,7 @@ public class ImportCommand extends Command {
                 Person person;
                 try {
                     person = createPersonFromMap(patientDetail);
-                } catch (NullPointerException e) {
+                } catch (Exception e) {
                     throw new CommandException(MESSAGE_FORMAT_ERROR);
                 }
                 if (person != null && !model.hasPerson(person)) {
@@ -136,7 +135,7 @@ public class ImportCommand extends Command {
                 details.add(map);
             }
             return details;
-        } catch (IOException | CsvException e) {
+        } catch (Exception e) {
             throw new DataLoadingException(e);
         }
     }
@@ -146,7 +145,7 @@ public class ImportCommand extends Command {
      * and will be skipped if the person already exists in the list.
      * @return a person created from the list.
      */
-    public Person createPersonFromMap(Map<String, String> patientDetail) throws NullPointerException {
+    public Person createPersonFromMap(Map<String, String> patientDetail) throws Exception {
         String nameStr = patientDetail.get("name");
         String phoneStr = patientDetail.get("phone");
         String addressStr = patientDetail.get("address");
