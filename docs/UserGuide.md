@@ -4,9 +4,7 @@
   pageNav: 3
 ---
 
-<h1 id="top">
-  RapidTracer
-</h1>
+# RapidTracer
 
 RapidTracer offers a fast-paced user interface (UI) for clinic managers to handle contacts and appointments. It combines:
 - a simple and intuitive UI;
@@ -37,7 +35,7 @@ If you encounter any issues running RapidTracer, you may refer to the detailed b
 
 ## Using RapidTracer
 
-The clinical workflow is separated into three steps with RapidTracer:
+### Table of contents
 1. [Input parameters](#inputs)
 2. [Registering patients and appointments](#patient-in-processing)
 3. [Searching existing records](#searching-records)
@@ -50,7 +48,7 @@ The clinical workflow is separated into three steps with RapidTracer:
   1. Input parameters
 </h3>
 
-The table below lists all input parameters and their possble values.
+The table below lists all input parameters and their possible values.
 Parameter     | Max Length | Min Length | Remarks
 -----------|-----------------------------------------|-----------------|----------|
 `PATIENT_INDEX` | N.A. | 1 | Positive integer displayed at the top-left of a **patient** card.
@@ -166,8 +164,7 @@ Format: `findappt KEYWORD [MORE_KEYWORDS]`
 - The `KEYWORD` search is case-insensitive.
 - Order of keywords does not matter.
 - Searches for the following appointment information:
-  - NAME
-  - ID
+  - `NAME` of patient
 
 <img src="images/userguide/findappt.png" style="width: 100%;">
 <p></p>
