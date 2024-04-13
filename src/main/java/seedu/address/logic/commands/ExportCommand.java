@@ -9,6 +9,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema.Builder;
@@ -119,6 +120,12 @@ public class ExportCommand extends Command {
         JsonNode personArray = jsonTree.get("persons");
         if (personArray == null || personArray.size() == 0) {
             throw new CommandException(MESSAGE_NO_PATIENT_FAILURE);
+        }
+        for (JsonNode person : personArray) {
+            if (person instanceof ObjectNode) {
+                ObjectNode objectNode = (ObjectNode) person;
+                objectNode.remove("id");
+            }
         }
         return personArray;
     }

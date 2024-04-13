@@ -53,8 +53,12 @@ public class ImportCommand extends Command {
             + PREFIX_IMPORT + "./data/patient.csv";
 
     public static final String MESSAGE_SUCCESS = "Imported patient contact from: %1$s";
-    public static final String MESSAGE_LOADING_ERROR = "Import failed due to data loading error. Please try again.";
-    public static final String MESSAGE_FORMAT_ERROR = "Import failed due to format error.";
+    public static final String MESSAGE_LOADING_ERROR = "Import failed due to data loading error. \n"
+            + "Please make sure you have put the csv file under the data directory.";
+    public static final String MESSAGE_FORMAT_ERROR = "Import failed due to format errors in the csv file. \n"
+            + "Please make sure the csv file only contains name, phone, address and tags. \n"
+            + "Please delete all empty lines in the csv file.";
+    public static final String MESSAGE_PARSE_FILE_FAILURE = "Error occurred while parsing csv file, please try again.";
 
     private final Path filePath;
     private final AddPersonCommandParser addPersonCommandParser = new AddPersonCommandParser();
@@ -89,14 +93,19 @@ public class ImportCommand extends Command {
         try {
             List<Map<String, String>> data = readFile();
             for (Map<String, String> patientDetail : data) {
-                Person person = createPersonFromMap(patientDetail);
-                if (!model.hasPerson(person)) {
+                Person person;
+                try {
+                    person = createPersonFromMap(patientDetail);
+                } catch (NullPointerException e) {
+                    throw new CommandException(MESSAGE_FORMAT_ERROR);
+                }
+                if (person != null && !model.hasPerson(person)) {
                     try {
                         String addPersonCommandInput = convertToAddPersonCommandInput(patientDetail);
                         AddPersonCommand addPersonCommand = parseAddPersonCommand(addPersonCommandInput);
                         addPersonCommand.execute(model);
                     } catch (ParseException e) {
-                        throw new CommandException(MESSAGE_FORMAT_ERROR);
+                        throw new CommandException(MESSAGE_PARSE_FILE_FAILURE);
                     }
                 }
             }
@@ -137,7 +146,7 @@ public class ImportCommand extends Command {
      * and will be skipped if the person already exists in the list.
      * @return a person created from the list.
      */
-    public Person createPersonFromMap(Map<String, String> patientDetail) {
+    public Person createPersonFromMap(Map<String, String> patientDetail) throws NullPointerException {
         String nameStr = patientDetail.get("name");
         String phoneStr = patientDetail.get("phone");
         String addressStr = patientDetail.get("address");

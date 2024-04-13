@@ -33,6 +33,8 @@ public class ImportCommandTest {
             "RapidTracer", "patientData.csv");
     private static final Path INVALID_FILE_PATH = Paths.get("src", "test", "data",
             "RapidTracer", "nonexistent.csv");
+    private static final Path WRONG_FORMAT_FILE_PATH = Paths.get("src", "test", "data",
+            "RapidTracer", "missingColumnFile.csv");
     private Model model = new ModelManager(new AddressBook(), new UserPrefs());
 
     @Test
@@ -49,6 +51,11 @@ public class ImportCommandTest {
         assertThrows(CommandException.class, () -> importCommand.execute(model));
     }
 
+    @Test
+    public void execute_import_throwsCommandException() {
+        ImportCommand importCommand = new ImportCommand(WRONG_FORMAT_FILE_PATH);
+        assertThrows(CommandException.class, () -> importCommand.execute(model));
+    }
     @Test
     public void execute_createPersonFromMap_success() {
         Map<String, String> patientDetail = new HashMap<>();
