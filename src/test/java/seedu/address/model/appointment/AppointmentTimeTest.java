@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -54,6 +55,15 @@ public class AppointmentTimeTest {
     }
 
     @Test
+    public void buildCurrent_correctInstance() {
+        AppointmentTime current = AppointmentTime.buildCurrent();
+        LocalTime now = LocalTime.now();
+
+        assertTrue(Math.abs(Duration.between(now, current.getStartTime()).toMinutes()) < 1000);
+        assertTrue(Math.abs(Duration.between(now, current.getEndTime()).toMinutes()) < 1000);
+    }
+
+    @Test
     public void constructor_invalidTimeFormat_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new AppointmentTime("12/01/2024 12ppm-2ppm"));
         assertThrows(IllegalArgumentException.class, () -> new AppointmentTime("12/01/2024 2am-3aam"));
@@ -69,6 +79,7 @@ public class AppointmentTimeTest {
 
         AppointmentTime evening = new AppointmentTime("12/01/2024 11pm-12am");
         assertEquals("12/01/2024 11pm-12am", evening.getFormattedDateTime());
+
     }
 
     @Test
@@ -82,6 +93,20 @@ public class AppointmentTimeTest {
         AppointmentTime laterDate = new AppointmentTime("13/01/2024 2pm-4pm");
         assertTrue(earlierDate.compareTo(laterDate) > 0);
         assertTrue(laterDate.compareTo(earlierDate) < 0);
+    }
+
+    @Test
+    public void compareTo_sameDateDifferentTimes() {
+        AppointmentTime earlier = new AppointmentTime("12/01/2024 2pm-3pm");
+        AppointmentTime later = new AppointmentTime("12/01/2024 4pm-5pm");
+        assertTrue(earlier.compareTo(later) > 0);
+        assertTrue(later.compareTo(earlier) < 0);
+    }
+
+    @Test
+    public void compareTo_nullObject() {
+        AppointmentTime appointmentTime = new AppointmentTime("12/01/2024 2pm-3pm");
+        assertTrue(appointmentTime.compareTo(null) > 0);
     }
 
 }
