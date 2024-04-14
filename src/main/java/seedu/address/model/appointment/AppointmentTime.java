@@ -57,6 +57,9 @@ public class AppointmentTime implements Comparable<AppointmentTime> {
         return endTime;
     }
 
+    /**
+     * Returns a string formatted in a similar manner to the input.
+     */
     public String getFormattedDateTime() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("ha").withLocale(Locale.ENGLISH);

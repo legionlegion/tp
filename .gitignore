@@ -1,3 +1,5 @@
+RapidTracerData/
+
 # Gradle build files
 **/build/
 !src/**/build/

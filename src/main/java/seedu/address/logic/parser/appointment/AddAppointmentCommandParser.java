@@ -24,11 +24,11 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddAppointmentCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
 
         Index index;
 
@@ -36,14 +36,14 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX
-                + AddAppointmentCommand.MESSAGE_USAGE);
+                    + AddAppointmentCommand.MESSAGE_USAGE);
         }
 
         AppointmentTime appointmentTime;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
             throw new ParseException("Missing date and time of appointment to add!\n"
-                + AddAppointmentCommand.MESSAGE_USAGE);
+                    + AddAppointmentCommand.MESSAGE_USAGE);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATE);
@@ -58,7 +58,8 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * Returns true if none of the prefixes contains empty {@code Optional} values
+     * in the given
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
