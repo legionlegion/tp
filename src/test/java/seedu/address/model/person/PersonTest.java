@@ -11,9 +11,13 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
+import java.util.Objects;
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class PersonTest {
 
@@ -87,6 +91,21 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+    }
+
+    @Test
+    public void getIdString() {
+        assertTrue(TypicalPersons.ALICE.getIdString() instanceof UUID);
+    }
+
+    @Test
+    public void test_hashCode() {
+        assertEquals(TypicalPersons.ALICE.hashCode(),
+                Objects.hash(TypicalPersons.ALICE.getId(),
+                        TypicalPersons.ALICE.getName(),
+                        TypicalPersons.ALICE.getPhone(),
+                        TypicalPersons.ALICE.getAddress(),
+                        TypicalPersons.ALICE.getTags()));
     }
 
     @Test

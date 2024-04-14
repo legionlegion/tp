@@ -11,10 +11,12 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.PersonBuilder;
@@ -166,6 +168,27 @@ public class UniquePersonListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniquePersonList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void equals() {
+        assertTrue(uniquePersonList.equals(uniquePersonList));
+        assertFalse(uniquePersonList.equals(new Object()));
+    }
+
+    @Test
+    public void iterator() {
+        uniquePersonList.add(ALICE);
+        Iterator<Person> iter = uniquePersonList.iterator();
+
+        assertTrue(iter instanceof Iterator);
+        assertTrue(iter.hasNext());
+        assertEquals(iter.next(), ALICE);
+    }
+
+    @Test
+    public void test_hashCode() {
+        assertEquals(uniquePersonList.hashCode(), FXCollections.observableArrayList().hashCode());
     }
 
     @Test
