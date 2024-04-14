@@ -40,7 +40,8 @@ public class EditAppointmentCommand extends Command {
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment for %1$s";
     public static final String MESSAGE_NOT_EDITED = "Date needs to be edited.";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book.";
-
+    public static final String MESSAGE_OVERLAP_APPOINTMENT = "%1$s has another appointment that clashes "
+        + "with this appointment!";
     public static final String MESSAGE_END_BEFORE_START = "End time must be strictly after start time!";
     private final Index index;
     private final EditAppointmentDescriptor editAppointmentDescriptor;
@@ -89,6 +90,10 @@ public class EditAppointmentCommand extends Command {
 
         if (model.hasAppointment(editedAppointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
+
+        if (model.hasOverlapAppointment(editedAppointment)) {
+            throw new CommandException(String.format(MESSAGE_OVERLAP_APPOINTMENT, personName));
         }
 
         model.setAppointment(appointmentToEdit, editedAppointment);

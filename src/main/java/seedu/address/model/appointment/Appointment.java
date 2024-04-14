@@ -77,6 +77,24 @@ public class Appointment implements Comparable<Appointment> {
         return (samePersonId && sameDate);
     }
 
+    /**
+     * Checks for overlap in timing of 2 appointments
+     */
+    public boolean overlap(Appointment other) {
+        boolean samePersonId = personId.equals((other.getPersonId()));
+        if (samePersonId) {
+            AppointmentTime otherTime = other.getAppointmentTime();
+
+            if (!otherTime.getAppointmentDate().equals(appointmentTime.getAppointmentDate())) {
+                return false;
+            }
+
+            return otherTime.getStartTime().isBefore(appointmentTime.getEndTime())
+                && appointmentTime.getStartTime().isBefore(otherTime.getEndTime());
+        }
+        return false;
+    }
+
     @Override
     public int compareTo(Appointment o) {
         if (o == null) {
