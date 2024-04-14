@@ -12,10 +12,7 @@ RapidTracer offers a fast-paced user interface (UI) for clinic managers to handl
 - the ability to load and store large datasets; and is
 - quick to use for fast typers!
 
-This guide provides a walkthrough on how to use RapidTracer to assist you in your clinical workflows, starting from patient in-processing. For experienced users, click the links on the right for quick navigation!
-
-<!-- * Table of Contents -->
-<page-nav-print />
+This guide provides a walkthrough on how to use RapidTracer to assist you in your clinical workflows, starting from patient in-processing.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -35,7 +32,6 @@ If you encounter any issues running RapidTracer, you may refer to the detailed b
 
 ## Using RapidTracer
 
-### Table of contents
 1. [Input parameters](#inputs)
 2. [Registering patients and appointments](#patient-in-processing)
 3. [Searching existing records](#searching-records)
@@ -103,7 +99,7 @@ Example(s): `add 1 d/today 3pm-4pm`, `add 1 d/16/10/2024 3pm-4pm`
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
 
 <box type="info" seamless>
-  <b>Remark:</b> The <code>addappt</code> command allows the addition of appointments with a passed date/time. This functionality allows you to add an appointment for record purposes if you forget to add the appointment when the patient visits the clinic. 
+  <b>Remark:</b> The <code>addappt</code> command allows the addition of appointments with date/time in the past. This functionality allows you to add an appointment for record purposes if you forget to add the appointment when the patient visits the clinic. 
 </box>
 
 <h4 id="add-with-appt" style="color: #7393B3">
