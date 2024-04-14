@@ -1,2 +1,3 @@
-package seedu.address.logic.commands.appointment;public class TraceCommandTest {
+package seedu.address.logic.commands.appointment;
+public class TraceCommandTest {
 }
