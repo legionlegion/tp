@@ -63,6 +63,7 @@ public class AppointmentTest {
 
         assertTrue(appointment1.compareTo(appointment2) < 0);
         assertTrue(appointment2.compareTo(appointment1) > 0);
+        assertTrue(appointment1.compareTo(null) == 1);
     }
 
     @Test
@@ -91,6 +92,17 @@ public class AppointmentTest {
     }
 
     @Test
+    public void overlap_noOverlapSameDay() {
+        AppointmentTime appointmentTime1 = new AppointmentTime("10/02/2024 10am-12pm");
+        Appointment appointment1 = new Appointment(UUID.randomUUID(), appointmentTime1);
+
+        AppointmentTime appointmentTime2 = new AppointmentTime("10/02/2024 2pm-3pm");
+        Appointment appointment2 = new Appointment(appointment1.getPersonId(), appointmentTime2);
+
+        assertFalse(appointment1.overlap(appointment2));
+    }
+
+    @Test
     public void overlap_overlapSameDay() {
         AppointmentTime appointmentTime1 = new AppointmentTime("10/02/2024 10am-12pm");
         Appointment appointment1 = new Appointment(UUID.randomUUID(), appointmentTime1);
@@ -98,7 +110,15 @@ public class AppointmentTest {
         AppointmentTime appointmentTime2 = new AppointmentTime("10/02/2024 11am-1pm");
         Appointment appointment2 = new Appointment(appointment1.getPersonId(), appointmentTime2);
 
+        AppointmentTime appointmentTime3 = new AppointmentTime("10/02/2024 11am-1pm");
+        Appointment appointment3 = new Appointment(appointment1.getPersonId(), appointmentTime3);
+
+        AppointmentTime appointmentTime4 = new AppointmentTime("10/02/2024 9am-11am");
+        Appointment appointment4 = new Appointment(appointment1.getPersonId(), appointmentTime4);
+
         assertTrue(appointment1.overlap(appointment2));
+        assertTrue(appointment1.overlap(appointment3));
+        assertTrue(appointment1.overlap(appointment4));
     }
 
 }

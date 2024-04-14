@@ -109,4 +109,9 @@ public class AppointmentTimeTest {
         assertTrue(appointmentTime.compareTo(null) > 0);
     }
 
+    @Test
+    public void parseRawTiming() {
+        assertThrows(IllegalArgumentException.class, () -> new AppointmentTime("12/01/2024 2pm-3cm"));
+    }
+
 }
