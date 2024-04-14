@@ -1,0 +1,18 @@
+{
+  "persons": [ {
+    "id": "1992a70f-8517-49b2-b911-e323eaf0b51c",
+    "name": "Alice Pauline",
+    "phone": "94351253",
+    "address": "123, Jurong West Ave 6, #08-111",
+    "tags": [ "friends" ]
+  } ],
+  "appointments" : [ {
+    "id" : "b4cc8b6c-d050-4b2f-824f-2aa2e0c2cc43",
+    "personId" : "1992a70f-8517-49b2-b911-e323eaf0b51c",
+    "appointmentTime" : "17/05/2024 9am-2pm"
+  }, {
+    "id" : "b4cc8b6c-d050-4b2f-824f-2aa2e0c2cc43",
+    "personId" : "1992a70f-8517-49b2-b911-e323eaf0b51c",
+    "appointmentTime" : "17/05/2024 9am-2pm"
+  } ]
+}
