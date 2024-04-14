@@ -15,6 +15,7 @@ import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.ModelManager;
+import seedu.address.testutil.TypicalPersons;
 
 public class AppointmentContainsKeywordsPredicateTest {
 
@@ -74,6 +75,12 @@ public class AppointmentContainsKeywordsPredicateTest {
         Function<Model, AppointmentContainsKeywordsPredicate> predicateFunction3 = AppointmentContainsKeywordsPredicate
                 .build(Arrays.asList("aLIce", "bOB"));
         predicate = predicateFunction3.apply(modelManager);
+        assertTrue(predicate.test(appointment));
+
+        // By UUID
+        Function<Model, AppointmentContainsKeywordsPredicate> predicateFunction4 = AppointmentContainsKeywordsPredicate
+                .build(Arrays.asList(TypicalPersons.ALICE.getId().toString()));
+        predicate = predicateFunction4.apply(modelManager);
         assertTrue(predicate.test(appointment));
     }
 

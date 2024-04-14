@@ -13,8 +13,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentsException;
+import seedu.address.model.appointment.exceptions.OverlappingAppointmentsException;
+import seedu.address.testutil.TypicalPersons;
 
 public class UniqueAppointmentListTest {
     private final UniqueAppointmentList uniqueAppointmentList = new UniqueAppointmentList();
@@ -44,6 +47,14 @@ public class UniqueAppointmentListTest {
     public void add_duplicateAppointment_throwsDuplicateAppointmentException() {
         uniqueAppointmentList.add(APPT1);
         assertThrows(DuplicateAppointmentsException.class, () -> uniqueAppointmentList.add(APPT1));
+    }
+
+    @Test
+    public void add_overlapAppointment_throwsOverlappingAppointmentsException() {
+        Appointment appointment1 = new Appointment(TypicalPersons.ALICE.getId(), new AppointmentTime("10/04/2050 2PM-4PM"));
+        Appointment appointment2 = new Appointment(TypicalPersons.ALICE.getId(), new AppointmentTime("10/04/2050 3PM-5PM"));
+        uniqueAppointmentList.add(appointment1);
+        assertThrows(OverlappingAppointmentsException.class, () -> uniqueAppointmentList.add(appointment2));
     }
 
     @Test
@@ -178,5 +189,10 @@ public class UniqueAppointmentListTest {
         uniqueAppointmentList.add(APPT1);
         String s = "APPT1";
         assertFalse(uniqueAppointmentList.equals(s));
+    }
+
+    @Test
+    public void test_hashCode() {
+        assertEquals(uniqueAppointmentList.hashCode(), FXCollections.observableArrayList().hashCode());
     }
 }
