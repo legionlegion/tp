@@ -1,4 +1,5 @@
 RapidTracerData/
+src/test/data/RapidTracer/patientData.csv
 
 # Gradle build files
 **/build/
