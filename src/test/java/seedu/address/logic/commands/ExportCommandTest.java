@@ -58,7 +58,7 @@ public class ExportCommandTest {
         exportCommand.updateCsvFilePath("./src/test/data/RapidTracer/patientData.csv");
 
         CommandResult commandResult = exportCommand.execute(model);
-        assertEquals(exportCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(ExportCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
 
         File csvFile = new File("./src/test/data/RapidTracer/patientData.csv");
         assertTrue(csvFile.exists());
