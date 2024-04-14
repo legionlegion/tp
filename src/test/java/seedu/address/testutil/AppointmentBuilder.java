@@ -52,6 +52,14 @@ public class AppointmentBuilder {
         return this;
     }
 
+        /**
+     * Sets the {@code personId} of the {@code Appointment} that we are building.
+     */
+    public AppointmentBuilder withPersonUUID(UUID personId) {
+        this.personId = personId;
+        return this;
+    }
+
     /**
      * Sets the {@code appointmentTime} of the {@code Appointment} that we are building.
      */

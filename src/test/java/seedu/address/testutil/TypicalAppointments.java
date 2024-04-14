@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalPersons.ALICE;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +26,8 @@ public class TypicalAppointments {
             .withId("d08cd77c-19d8-4c7a-8a28-aedf7a4f3c80")
             .withPersonId("60eb3b8c-247d-4dcd-b71c-9ecf9dd52237")
             .withAppointmentTime(new AppointmentTime("12/02/2024 11am-2pm")).build();
+    public static final Appointment ALICE_APPT = new AppointmentBuilder()
+            .withPersonUUID(ALICE.getId()).build();
 
     private TypicalAppointments() {} // prevents instantiation
 

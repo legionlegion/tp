@@ -2,11 +2,16 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAppointments.ALICE_APPT;
 import static seedu.address.testutil.TypicalAppointments.APPT1;
+import static seedu.address.testutil.TypicalAppointments.APPT2;
+import static seedu.address.testutil.TypicalAppointments.APPT3;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -15,6 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
@@ -28,9 +34,54 @@ public class AddressBookTest {
 
     private final AddressBook addressBook = new AddressBook();
 
-    @Test
-    public void constructor() {
+    @BeforeEach
+    void setUp() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
+
+        addressBook.addAppointment(APPT1);
+        addressBook.addAppointment(APPT2);
+    }
+
+    @Test
+    void setAppointments_shouldCorrectlyMapAppointments() {
+        assertEquals(APPT1, addressBook.getAppointmentById(APPT1.getId()));
+        assertEquals(APPT2, addressBook.getAppointmentById(APPT2.getId()));
+    }
+
+    @Test
+    void removeAppointment_shouldRemoveFromListAndMap() {
+        addressBook.removeAppointment(APPT1);
+        assertNull(addressBook.getAppointmentById(APPT1.getId()));
+        assertNotNull(addressBook.getAppointmentById(APPT2.getId())); // Ensure only the correct appointment is removed
+    }
+
+    @Test
+    void removePerson_shouldRemovePersonAndAssociatedAppointments() {
+        addressBook.addPerson(ALICE);
+        addressBook.addAppointment(ALICE_APPT);
+        addressBook.removePerson(ALICE);
+
+        assertNull(addressBook.getAppointmentById(ALICE_APPT.getId()));
+    }
+
+    @Test
+    void setAppointment_shouldUpdateBothListAndMap() {
+        addressBook.setAppointment(APPT1, APPT3);
+
+        assertEquals(APPT3, addressBook.getAppointmentById(APPT3.getId()));
+        assertNull(addressBook.getAppointmentById(APPT1.getId())); // Ensuring no side effects
+    }
+
+    @Test
+    public void equals_sameObject_returnsTrue() {
+        AddressBook addressBook = new AddressBook();
+        assertTrue(addressBook.equals(addressBook));
+    }
+
+    @Test
+    public void equals_differentType_returnsFalse() {
+        AddressBook addressBook = new AddressBook();
+        assertFalse(addressBook.equals(new String("Not an AddressBook")));
     }
 
     @Test
@@ -85,7 +136,6 @@ public class AddressBookTest {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
     }
 
-
     @Test
     public void hasAppointment_nullAppointment_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasAppointment(null));
@@ -93,12 +143,11 @@ public class AddressBookTest {
 
     @Test
     public void hasAppointment_appointmentNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasAppointment(APPT1));
+        assertFalse(addressBook.hasAppointment(APPT3));
     }
 
     @Test
     public void hasAppointment_appointmentInAddressBook_returnsTrue() {
-        addressBook.addAppointment(APPT1);
         assertTrue(addressBook.hasAppointment(APPT1));
     }
 
@@ -115,7 +164,8 @@ public class AddressBookTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose persons list can violate interface
+     * constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
@@ -129,6 +179,7 @@ public class AddressBookTest {
         public ObservableList<Person> getPersonList() {
             return persons;
         }
+
         @Override
         public ObservableList<Appointment> getAppointmentList() {
             return appointments;
