@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,6 +15,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
@@ -40,8 +43,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX,
+                () -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -61,6 +64,12 @@ public class ParserUtilTest {
     @Test
     public void parseName_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+    }
+
+    @Test
+    public void parseName_excessiveLength_throwsParseException() {
+        String longName = "This is a very long name that should exceed fifty characters limit which is set by the system for validation";
+        assertThrows(ParseException.class, Messages.MESSAGE_LONG_NAME, () -> ParserUtil.parseName(longName));
     }
 
     @Test
@@ -100,6 +109,12 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parsePhone_excessiveLength_throwsParseException() {
+        String longPhone = "123456789012345678901"; // 21 characters
+        assertThrows(ParseException.class, Messages.MESSAGE_LONG_PHONE, () -> ParserUtil.parsePhone(longPhone));
+    }
+
+    @Test
     public void parseAddress_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
     }
@@ -120,6 +135,18 @@ public class ParserUtilTest {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Address expectedAddress = new Address(VALID_ADDRESS);
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+    }
+
+    @Test
+    public void parseAddress_excessiveLength_throwsParseException() {
+        String longAddress = "This is a very long address that definitely exceeds the fifty characters limit set by the system for address validation";
+        assertThrows(ParseException.class, Messages.MESSAGE_LONG_ADDRESS, () -> ParserUtil.parseAddress(longAddress));
+    }
+
+    @Test
+    public void parseAddress_insufficientLength_throwsParseException() {
+        String shortAddress = "ab"; // 2 characters
+        assertThrows(ParseException.class, Messages.MESSAGE_SHORT_ADDRESS, () -> ParserUtil.parseAddress(shortAddress));
     }
 
     @Test
@@ -166,5 +193,16 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseTag_excessiveLength_throwsParseException() {
+        String longTag = "verylongtagnameexceedingtwentycharacters";
+        assertThrows(ParseException.class, Messages.MESSAGE_LONG_TAG, () -> ParserUtil.parseTag(longTag));
+    }
+
+    @Test
+    public void parseFilePath_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseFilePath(null));
     }
 }
