@@ -54,7 +54,8 @@ public class AppointmentContainsKeywordsPredicate implements Predicate<Appointme
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(
                         model.getPersonById(
                                 appointment.getPersonId()).getName().fullName,
-                        keyword));
+                        keyword)
+                        || appointment.getPersonIdString().equals(keyword));
     }
 
     @Override
