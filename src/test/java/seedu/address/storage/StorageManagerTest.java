@@ -12,6 +12,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
 
@@ -52,5 +53,13 @@ public class StorageManagerTest {
     @Test
     public void getUserPrefFilePath() {
         assertNotNull(storageManager.getUserPrefsFilePath());
+    }
+
+    @Test
+    public void userPrefReadSave() throws Exception {
+        UserPrefs original = new UserPrefs();
+        storageManager.saveUserPrefs(original);
+        UserPrefs retrieved = storageManager.readUserPrefs().get();
+        assertNotNull(retrieved);
     }
 }

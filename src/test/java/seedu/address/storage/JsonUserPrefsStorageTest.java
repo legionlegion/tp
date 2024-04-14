@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
@@ -97,5 +98,20 @@ public class JsonUserPrefsStorageTest {
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file", ioe);
         }
+    }
+
+    @Test
+    private void readUserPrefsTest() throws DataLoadingException {
+        assertNotNull(new JsonUserPrefsStorage(testFolder).readUserPrefs());
+    }
+
+    @Test
+    private void userPrefReadSave() throws DataLoadingException, IOException {
+        JsonUserPrefsStorage a =
+            new JsonUserPrefsStorage(addToTestDataPathIfNotNull("TypicalUserPref.json"));
+        UserPrefs original = getTypicalUserPrefs();
+        a.saveUserPrefs(original);
+        UserPrefs retrieved = a.readUserPrefs().get();
+        assertEquals(original, retrieved);
     }
 }
