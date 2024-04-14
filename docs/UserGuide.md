@@ -297,12 +297,12 @@ You can export existing patient data to a csv file stored in a specific location
 
 Format: `export`
 
-- Create a directory named `RapidTracerData` in the folder where RapidTracer is launched.
-- Create a new csv file named `PatientData.csv` in the `RapidTracerData` directory.
-- The pre-existed data in the csv file will be overwritten once you perform the export action.
+- Create a directory named `data` (if it doesn't exist) in the directory RapidTracer launched from.
+- Create a new csv file named `PatientData.csv` in the `data` directory.
+- The pre-existing data in the csv file will be overwritten once you perform the export action.
 
 <box type="info" seamless>
-  <b>Remark:</b> If you execute the export command without creating the RapidTracerData directory and PatientData.csv file, the directory and file will be automatically generated in the folder where RapidTracer is launched.
+  <b>Remark:</b> If you execute the export command without creating the data directory and PatientData.csv file, the directory and file will be automatically generated in the folder where RapidTracer is launched.
 </box>
 
 
