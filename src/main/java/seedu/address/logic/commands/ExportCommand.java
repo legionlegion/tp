@@ -29,9 +29,9 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_NO_PATIENT_FAILURE = "No patients data stored in the JSON file";
 
     public static final String MESSAGE_SUCCESS = "Exported all patients' information to a CSV file \n"
-            + "The CSV file can be found in the RapidTracerData directory.";
+            + "The CSV file can be found in the data directory.";
 
-    private String csvFilePath = "./RapidTracerData/PatientData.csv";
+    private String csvFilePath = "./data/PatientData.csv";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
