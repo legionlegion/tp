@@ -27,7 +27,8 @@ public class AppointmentBuilder {
     }
 
     /**
-     * Initializes the AppointmentBuilder with the data of {@code appointmentToCopy}.
+     * Initializes the AppointmentBuilder with the data of
+     * {@code appointmentToCopy}.
      */
     public AppointmentBuilder(Appointment appointmentToCopy) {
         id = appointmentToCopy.getId();
@@ -52,16 +53,17 @@ public class AppointmentBuilder {
         return this;
     }
 
-        /**
+    /**
      * Sets the {@code personId} of the {@code Appointment} that we are building.
      */
-    public AppointmentBuilder withPersonUUID(UUID personId) {
+    public AppointmentBuilder withPersonUuid(UUID personId) {
         this.personId = personId;
         return this;
     }
 
     /**
-     * Sets the {@code appointmentTime} of the {@code Appointment} that we are building.
+     * Sets the {@code appointmentTime} of the {@code Appointment} that we are
+     * building.
      */
     public AppointmentBuilder withAppointmentTime(AppointmentTime appointmentTime) {
         this.appointmentTime = appointmentTime;

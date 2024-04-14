@@ -27,7 +27,7 @@ public class TypicalAppointments {
             .withPersonId("60eb3b8c-247d-4dcd-b71c-9ecf9dd52237")
             .withAppointmentTime(new AppointmentTime("12/02/2024 11am-2pm")).build();
     public static final Appointment ALICE_APPT = new AppointmentBuilder()
-            .withPersonUUID(ALICE.getId()).build();
+            .withPersonUuid(ALICE.getId()).build();
 
     private TypicalAppointments() {} // prevents instantiation
 
