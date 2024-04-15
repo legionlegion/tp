@@ -51,6 +51,22 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
+     * Checks if the person has any appointments that overlap with the specified
+     * appointment without the appointmentWithout.
+     *
+     * @param appointment The appointment to check.
+     * @param appointmentWithout The appointment not to check
+     * @return True if the person has any appointments that overlap with the
+     *         appointment, false otherwise.
+     * @throws NullPointerException if the appointment to check is null.
+     */
+    public boolean overlapWithout(Appointment appointment, Appointment appointmentWithout) {
+        requireNonNull(appointment);
+        requireNonNull(appointmentWithout);
+        return internalList.stream().anyMatch(x -> appointment.overlapWithout(x, appointmentWithout));
+    }
+
+    /**
      * Adds an appointment to the list.
      *
      * @param toAdd The appointment to add.
