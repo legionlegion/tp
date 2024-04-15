@@ -170,24 +170,31 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
+This features adds a new appointment to the system. The sequence diagram below illustrates the interactions inside the logic component when the `addappt 1 d/today 9am-2pm` command is entered by the user.
 
+<puml src="diagrams/AddAppointmentSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `addappt 1 d/today 9am-2pm` Command" />
+
+**Note:** The lifeline for `AddAppointmentCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Step 1. The user enters `addappt 1 d/today 9am-2pm` into the program. The user input is routed through the `:LogicManager` to the `:AddressBookParser`.
+
+Step 2. The `:AddressBookParser` creates a new instance of `:AddAppointmentCommandParser` and calls `parse("1 d/today 9am-2pm")`.
+
+Step 3. The call to `:AddAppointmentCommandParser#parse` utilizes two helper classes `ParserUtil` and `TimeParser` to parse the patient index and the appointment time respectively.
+
+Step 4. The result of the `:AddAppointmentCommandParser#parse` function is a `:AddAppointmentCommand` object. This object is returned back to the `:LogicManager` which runs `:AddAppointmentCommand#execute`.
+
+Step 5. This execution creates a new `Appointment` object and adds it the `:Model` via `addAppointment(appointmentToAdd)`.
+
+Step 6. The result of the `:AddAppointmentCommand#execute` function is a `:CommandResult` object. This object contains directives for the UI for response handling.
 
 #### Design Considerations
 
+The creation of an `Appointment` requires a parent `Person` to be associated with it. In line with the Separation of Concerns (SoC) principle, the two objects are decoupled, and the `Appointment` object is associated with its `Person` solely through an identifier (id).
 
-### Trace feature
+This design choice allows for reduced coupling between the objects, which simplifies both development and maintenance by minimizing the impact of changes in the `Person` object on the `Appointment` management system. Furthermore, it facilitates easier testing and enhances modularity, allowing each component to be developed, tested, and updated independently. This approach also improves scalability and performance, as the system uses lightweight references rather than direct object dependencies, which is particularly advantageous in this system where the entirety of our "database" is stored *in-memory*.
 
-#### Implementation
-
-#### Design Considerations
-
-
-### Export feature
-
-#### Implementation
-
-#### Design Considerations
-
+However, this decoupling necessitates careful handling of data consistency and synchronization, ensuring that changes in the `Person` data are accurately reflected in related `Appointments`, and vice-versa, to maintain system integrity. This is facilitated through the use of `Map<UUID, Person>` and `Map<UUID, Appointment>`, which serve as repositories for storing and retrieving person and appointment objects through their identifiers. Hence, enabling efficient CRUD operations for managing the lifecycles of each object within the system.
 
 ### \[Proposed\] Undo/redo feature
 
@@ -279,13 +286,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   itself.
   * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 
