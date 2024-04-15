@@ -274,6 +274,7 @@ In the event that a patient requests for their data to be deleted, you can use t
 <b>Example(s):</b> `delete 2` <br />
 <b>Result of `delete 2`:</b>
 
+![alt text](image-21.png)
 - Deletes the patient at the specified `PATIENT_INDEX`.
 - Only one `PATIENT_INDEX` can be specified at a time.
 
@@ -284,9 +285,10 @@ In the event that a patient requests for their data to be deleted, you can use t
 In the event that an appointment is cancelled, you can delete it using the `deleteappt` command.
 
 <b>Format:</b> `deleteappt APPT_INDEX` <br />
-<b>Example(s):</b> `edit 1 p/12345678`, `edit 1 a/NUS UTown` <br />
-<b>Result of `edit 1 a/NUS UTown`:</b>
+<b>Example(s):</b> `deleteappt 1` <br />
+<b>Result of `deleteappt 1`:</b>
 
+![alt text](image-22.png)
 - Deletes the appointment at the specified `APPT_INDEX`.
 - Only one `APPT_INDEX` can be specified at a time.
 
@@ -300,12 +302,15 @@ In the event that an appointment is cancelled, you can delete it using the `dele
 
 You can import patient data from a csv file.
 
-![img_3.png](img_3.png)
-
 <b>Format:</b> `import i/./data/FILENAME.csv` <br />
 <b>Example(s):</b> `import i/./data/FILENAME.csv` <br />
-<b>Result of `import i/./data/FILENAME.csv`:</b>
+<b>Result of `import i/./data/PatientData.csv`:</b>
 
+Patient Data file:
+![alt text](image-26.png)
+
+Import command executed:
+![alt text](image-25.png)
 - The csv file should be formatted in a way that it only contains 4 columns with specific headings as shown above. If the patient does not have an address or a tag, please insert "NIL" before importing.
 - If you want to add multiple tags for the same patient, please use `;` to separate the tags.
 - Please save your patient data file under the `data` directory created when you launch RapidTracer in an empty file.
@@ -326,6 +331,11 @@ You can export existing patient data to a csv file stored in a specific location
 <b>Example(s):</b> `export` <br />
 <b>Result of `export`:</b>
 
+Export command executed:
+![alt text](image-23.png)
+
+After export:
+![alt text](image-27.png)
 - Create a directory named `data` (if it doesn't exist) in the directory RapidTracer launched from.
 - Create a new csv file named `PatientData.csv` in the `data` directory.
 - The pre-existing data in the csv file will be overwritten once you perform the export action.
@@ -346,6 +356,7 @@ You can export existing patient data to a csv file stored in a specific location
 <b>Example(s):</b> `clear` <br />
 <b>Result of `clear`:</b>
 
+![alt text](image-20.png)
 <h3 id="general-help" style="color: #088F8F">
   8. General help
 </h3>

@@ -157,9 +157,10 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             if (helpWindow.isIconified()) { //Check if the window is minimized
                 helpWindow.setIconified(false); // De-minimize the window
+            } else {
+                helpWindow.close();
+                helpWindow.show();
             }
-            helpWindow.close();
-            helpWindow.show();
         }
     }
 
