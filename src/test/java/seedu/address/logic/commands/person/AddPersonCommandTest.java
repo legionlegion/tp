@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
@@ -22,17 +23,60 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class AddPersonCommandTest {
+    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddPersonCommand(null));
+    }
+
+    @Test
+    public void execute_badAppointment_throwsCommandException() {
+        Person person = TypicalPersons.AMY;
+        AppointmentTime appointmentTime = new AppointmentTime("10/04/2050 3PM-2PM");
+        Appointment appointment = new Appointment(TypicalPersons.AMY.getId(), appointmentTime);
+        AddPersonCommand addPersonCommand = new AddPersonCommand(person, appointment);
+
+        assertThrows(CommandException.class, () -> addPersonCommand.execute(model));
+    }
+
+    @Test
+    public void execute_goodAppointment_success() {
+        Person person = TypicalPersons.AMY;
+        AppointmentTime appointmentTime = new AppointmentTime("10/04/2050 2PM-3PM");
+        Appointment appointment = new Appointment(TypicalPersons.AMY.getId(), appointmentTime);
+        AddPersonCommand addPersonCommand = new AddPersonCommand(person, appointment);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(person);
+        expectedModel.addAppointment(appointment);
+
+        String expectedMessage = String.format(AddPersonCommand.MESSAGE_SUCCESS, Messages.formatPerson(person));
+
+        assertCommandSuccess(addPersonCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_duplicateAppointment_throwsCommandException() {
+        Person person = TypicalPersons.AMY;
+        AppointmentTime appointmentTime = new AppointmentTime("10/04/2050 2PM-3PM");
+        Appointment appointment = new Appointment(TypicalPersons.AMY.getId(), appointmentTime);
+        AddPersonCommand addPersonCommand = new AddPersonCommand(person, appointment);
+
+        model.addAppointment(appointment);
+
+        assertThrows(CommandException.class, () -> addPersonCommand.execute(model));
     }
 
     @Test
