@@ -95,6 +95,27 @@ public class Appointment implements Comparable<Appointment> {
         return false;
     }
 
+    /**
+     * Checks for overlap in timing of 2 appointments without the specified appointment
+     */
+    public boolean overlapWithout(Appointment other, Appointment without) {
+        if (other.equals(without)) {
+            return false;
+        }
+        boolean samePersonId = personId.equals((other.getPersonId()));
+        if (samePersonId) {
+            AppointmentTime otherTime = other.getAppointmentTime();
+
+            if (!otherTime.getAppointmentDate().equals(appointmentTime.getAppointmentDate())) {
+                return false;
+            }
+
+            return otherTime.getStartTime().isBefore(appointmentTime.getEndTime())
+                && appointmentTime.getStartTime().isBefore(otherTime.getEndTime());
+        }
+        return false;
+    }
+
     @Override
     public int compareTo(Appointment o) {
         if (o == null) {
