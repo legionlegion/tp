@@ -15,12 +15,13 @@
 
 This project was adapted from [AB3](https://se-education.org/addressbook-level3/), the source code of which can be found [here](https://github.com/nus-cs2103-AY2324S2/tp).
 
-The OpenCSV library is used in `export` and `import` commands for features related to CSV files. 
+The OpenCSV library is used in `export` and `import` commands for features related to CSV files.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
 
-Refer to the guide [_Setting up and getting started_](SettingUp.md).
+Refer to the guide [_Setting up and getting started_](https://ay2324s2-cs2103t-t10-2.github.io/tp/SettingUp.html).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -320,11 +321,11 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
-* [Documentation guide](Documentation.md)
-* [Testing guide](Testing.md)
-* [Logging guide](Logging.md)
-* [Configuration guide](Configuration.md)
-* [DevOps guide](DevOps.md)
+* [Documentation guide](https://ay2324s2-cs2103t-t10-2.github.io/tp/Documentation.html)
+* [Testing guide](https://ay2324s2-cs2103t-t10-2.github.io/tp/Testing.html)
+* [Logging guide](https://ay2324s2-cs2103t-t10-2.github.io/tp/Logging.html)
+* [Configuration guide](https://ay2324s2-cs2103t-t10-2.github.io/tp/Configuration.html)
+* [DevOps guide](https://ay2324s2-cs2103t-t10-2.github.io/tp/DevOps.html)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -634,7 +635,7 @@ testers are expected to do more *exploratory* testing.
         Expected: Opening the RapidTracer app will show 2 empty lists
     ![alt text](image-4.png)
     <br>
-    4. Test case: Make a valid change to the `addressbook.json` file, by changing name of any patient. E.g. "Alex Yeoh" -> "Alex".  
+    4. Test case: Make a valid change to the `addressbook.json` file, by changing name of any patient. E.g. "Alex Yeoh" -> "Alex".
     ![alt text](image-5.png)
 
         Expected: Opening the RapidTracer app will show the change.

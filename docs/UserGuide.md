@@ -21,7 +21,7 @@ This guide provides a walkthrough on how to use RapidTracer to assist you in you
 This section covers the download and installation process for RapidTracer.
 
 1. Ensure you have Java `11` or above installed on your computer.
-2. Download the latest version of `RapidTracer.jar` [here](https://github.com/AY2324S2-CS2103T-T10-2/tp/releases/tag/v1.2).
+2. Download the latest version of `RapidTracer.jar` [here](https://github.com/AY2324S2-CS2103T-T10-2/tp/releases/tag/v1.4).
 3. Copy the file to the folder you want to store all RapidTracer data in.
 4. Open a command terminal and navigate to the folder where `RapidTracer.jar` is located using the `cd FOLDER_NAME` command. Use the `java -jar RapidTracer.jar` command to start running RapidTracer.
    <img src="images/userguide/rapidtracerquickstart.png" style="width: 100%;">
@@ -104,7 +104,7 @@ You can schedule appointments for existing patients using the `addappt` command.
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
 
 <box type="info" seamless>
-  <b>Remark:</b> The <code>addappt</code> command allows the addition of appointments with date/time in the past. This functionality allows you to add an appointment for record purposes if you forget to add the appointment when the patient visits the clinic. 
+  <b>Remark:</b> The <code>addappt</code> command allows the addition of appointments with date/time in the past. This functionality allows you to add an appointment for record purposes if you forget to add the appointment when the patient visits the clinic.
 </box>
 
 <h4 id="add-with-appt" style="color: #7393B3">
@@ -196,7 +196,7 @@ Shows a list of all patients in RapidTracer.
 
 Shows a list of all appointments in RapidTracer.
 
-<b>Format:</b> `listappt`
+<b>Format:</b> `listappt`<br />
 <b>Example(s):</b> `listappt`<br />
 <b>Result of `listappt`:</b>
 
@@ -277,6 +277,10 @@ In the event that a patient requests for their data to be deleted, you can use t
 ![alt text](image-21.png)
 - Deletes the patient at the specified `PATIENT_INDEX`.
 - Only one `PATIENT_INDEX` can be specified at a time.
+
+<box type="info" seamless>
+  <b>Remark:</b> A patient's associated appointments will be deleted along with the patient. 
+</box>
 
 <h4 id="deleteappt" style="color: #7393B3">
   Deleting appointments: <code>deleteappt</code>
