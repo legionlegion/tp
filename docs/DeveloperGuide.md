@@ -15,6 +15,7 @@
 
 This project was adapted from [AB3](https://se-education.org/addressbook-level3/), the source code of which can be found [here](https://github.com/nus-cs2103-AY2324S2/tp).
 
+The OpenCSV library is used in `export` and `import` commands for features related to CSV files. 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -157,6 +158,22 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Export feature
+
+The `export` command allows users to export the details of all patient stored to a CSV file. The CSV file is generated as `./data/PatientData.csv`.
+The sequence diagram below shows how the `export` command goes through the `logic` component.
+
+<puml src="diagrams/ExportSequenceDiagram.puml" width="550" />
+
+1: When the user issues the command `export`, Logic is called upon to execute the command, it is passed to the `AddressBookParser` object which creates an `ExportCommand` object directly.
+2: The `ExportCommandParser` class is not required in this case as the `export` command does not require any additional arguments from the user.
+3: The `execute` method call retrieves the file path of the `addressbook.json` by calling the getAddressBookFilePath() method in `Model`. This file contains information of all patients added into the system previously.
+4: The information in the JSON file retrieved is read by the `readJsonFile()` method in `ExportCommand` and returned as JSON trees. 
+5: By calling the `readPerson()` method in `ExportCommand` on the JSON trees, the persons array is obtained.
+6: A csv file named `PatientData.csv` is created under the `data` directory by using the `createCsvDirectory()` method in `ExportCommand`. 
+7: The CSV schema is built based on the fields of the persons array using the `createCsvSchema()` method in `ExportCommand`. This method relies on the Jaskson Dataformat CSV module to build the CSV schema.
+8: By calling the `writeToCsv`, the persons array is written to the CSV file according to the Schema created using Jackson's `CsvMapper`.
 
 ### \[Proposed\] Undo/redo feature
 
