@@ -82,7 +82,7 @@ The `UI` component,
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Person` and `Appointment` objects residing in the `Model`.
 
 ### Logic component
 
@@ -98,13 +98,13 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 <box type="info" seamless>
 
-**Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+**Note:** The lifeline for `DeletePersonCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </box>
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeletePersonCommandParser`) and uses it to parse the command.
+1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeletePersonCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
@@ -114,8 +114,8 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddPersonCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddPersonCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* All `XYZCommandParser` classes (e.g., `AddPersonCommandParser`, `DeletePersonCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S2-CS2103T-T10-2/tp/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -123,12 +123,18 @@ How the parsing works:
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
 
-The `Model` component,
+The `Model` component does the following:
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+* Stores the address book data:
+  * All `Person` objects (which are contained in a `UniquePersonList` object).
+  * All `Appointment` objects (which are contained in a `UniqueAppointmentList` object).
+  * Both object types are encapsulated by the `AddressBook` object.
+* Stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+  * Likewise for the currently selected `Appointment` objects, they are observed through an unmodifiable `ObservableList<Appointment>`
+* Stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* Does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+
+It is important to understand how the `Person` and `Appointment` objects function because they are coupled to each other through their `id`. A `Person` has a one-to-many relationship with `Appointment`. An `Appointment` object stores the `id` of its associated `Person` object. The mapping of `id` to `Person` is handled by the `AddressBook`.
 
 <box type="info" seamless>
 
@@ -159,6 +165,29 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Add Appointment feature
+
+#### Implementation
+
+
+
+#### Design Considerations
+
+
+### Trace feature
+
+#### Implementation
+
+#### Design Considerations
+
+
+### Export feature
+
+#### Implementation
+
+#### Design Considerations
+
 
 ### \[Proposed\] Undo/redo feature
 

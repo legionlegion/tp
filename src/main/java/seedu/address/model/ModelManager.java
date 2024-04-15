@@ -24,13 +24,6 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-
-    /**
-     * AppointmentView is used here since the list of filtered appointments is used
-     * directly in the GUI to display a list of appointments. However, it has the
-     * added requirement of also displaying some elements of its associated
-     * {@code Person}.
-     */
     private final FilteredList<Appointment> filteredAppointments;
 
     /**
