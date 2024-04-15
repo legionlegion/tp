@@ -109,7 +109,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a person with the same identity as {@code person} exists in
      * the address book.
-     * TODO: Could be O(1) if we use the personMap hashmap to check.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
