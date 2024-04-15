@@ -3,6 +3,7 @@ package seedu.address.logic.commands.appointment;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -12,9 +13,11 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentTime;
 import seedu.address.testutil.TypicalPersons;
 
@@ -123,31 +126,57 @@ public class EditAppointmentCommandTest {
         assertThrows(NullPointerException.class, () -> new EditAppointmentCommand(null, null));
     }
 
-    //@Test
-    //public void createdEditAppointment_noUpdate() {
-    //    EditAppointmentCommand.EditAppointmentDescriptor editAppointmentDescriptor = new EditAppointmentCommand.EditAppointmentDescriptor();
-    //    editAppointmentDescriptor.setAppointmentTime(new AppointmentTime("10/04/2050 2PM-3PM"));
-    //    EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_PERSON, editAppointmentDescriptor);
-    //
-    //    String expected = EditAppointmentCommand.class.getCanonicalName() + "{index=" + INDEX_FIRST_PERSON
-    //            + ", editAppointmentDescriptor=" + editAppointmentDescriptor + "}";
-    //    assertEquals(expected, editAppointmentCommand.toString());
-    //}
+    @Test
+    public void execute_null() {
+        EditAppointmentCommand.EditAppointmentDescriptor editAppointmentDescriptor = new EditAppointmentCommand.EditAppointmentDescriptor();
+        AppointmentTime appointmentTime = new AppointmentTime("10/04/2050 2PM-3PM");
+        editAppointmentDescriptor.setAppointmentTime(appointmentTime);
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_PERSON, editAppointmentDescriptor);
 
-    //@Test
-    //public void createdEditAppointment_withUpdate() throws CommandException {
-    //    AppointmentTime appointmentTime = new AppointmentTime("10/04/2050 2PM-3PM");
-    //    AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(INDEX_FIRST_PERSON, appointmentTime);
-    //    addAppointmentCommand.execute(model);
-    //
-    //    EditAppointmentCommand.EditAppointmentDescriptor editAppointmentDescriptor = new EditAppointmentCommand.EditAppointmentDescriptor();
-    //    editAppointmentDescriptor.setAppointmentTime(new AppointmentTime("10/04/2050 2PM-3PM"));
-    //    EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_PERSON, editAppointmentDescriptor);
-    //
-    //    editAppointmentCommand.execute(model);
-    //
-    //   assertTrue()
-    //}
+        assertThrows(CommandException.class, () -> editAppointmentCommand.execute(model));
+    }
+
+    @Test
+    public void execute_wrongIndex_throwsCommandException() {
+        EditAppointmentCommand.EditAppointmentDescriptor editAppointmentDescriptor = new EditAppointmentCommand.EditAppointmentDescriptor();
+        AppointmentTime appointmentTime = new AppointmentTime("10/04/2050 2PM-3PM");
+        editAppointmentDescriptor.setAppointmentTime(appointmentTime);
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(Index.fromOneBased(10000), editAppointmentDescriptor);
+
+        assertThrows(CommandException.class, () -> editAppointmentCommand.execute(model));
+    }
+
+    @Test
+    public void execute_wrongAppointmentTime_throwsCommandException() {
+        AppointmentTime originalTime = new AppointmentTime("10/04/2050 1PM-2PM");
+        model.addAppointment(new Appointment(TypicalPersons.ALICE.getId(), originalTime));
+
+        EditAppointmentCommand.EditAppointmentDescriptor editAppointmentDescriptor = new EditAppointmentCommand.EditAppointmentDescriptor();
+        AppointmentTime appointmentTime = new AppointmentTime("10/04/2050 3PM-2PM");
+        editAppointmentDescriptor.setAppointmentTime(appointmentTime);
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(Index.fromOneBased(1), editAppointmentDescriptor);
+
+        assertThrows(CommandException.class, () -> editAppointmentCommand.execute(model));
+    }
+
+    @Test
+    public void execute_success() {
+        AppointmentTime originalTime = new AppointmentTime("10/04/2050 1PM-2PM");
+        model.addAppointment(new Appointment(TypicalPersons.ALICE.getId(), originalTime));
+
+        EditAppointmentCommand.EditAppointmentDescriptor editAppointmentDescriptor = new EditAppointmentCommand.EditAppointmentDescriptor();
+        AppointmentTime appointmentTime = new AppointmentTime("10/04/2050 2PM-3PM");
+        editAppointmentDescriptor.setAppointmentTime(appointmentTime);
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(Index.fromOneBased(1), editAppointmentDescriptor);
+
+        Model expectedModel = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+        Appointment newAppointment = new Appointment(TypicalPersons.ALICE.getId(), appointmentTime);
+        expectedModel.addAppointment(newAppointment);
+
+        String expectedMessage = "Edited Appointment for Alice Pauline; Time: 10/04/2050: from 2:00PM to 3:00PM";
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+    }
 
     @Test
     public void equals_editAppointmentCommand() {
