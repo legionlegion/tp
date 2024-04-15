@@ -15,6 +15,7 @@
 
 This project was adapted from [AB3](https://se-education.org/addressbook-level3/), the source code of which can be found [here](https://github.com/nus-cs2103-AY2324S2/tp).
 
+The OpenCSV library is used in `export` and `import` commands for features related to CSV files. 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -166,6 +167,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=======
 ### Add Appointment feature
 
 #### Implementation
@@ -196,6 +198,33 @@ This design choice allows for reduced coupling between the objects, which simpli
 
 However, this decoupling necessitates careful handling of data consistency and synchronization, ensuring that changes in the `Person` data are accurately reflected in related `Appointments`, and vice-versa, to maintain system integrity. This is facilitated through the use of `Map<UUID, Person>` and `Map<UUID, Appointment>`, which serve as repositories for storing and retrieving person and appointment objects through their identifiers. Hence, enabling efficient CRUD operations for managing the lifecycles of each object within the system.
 
+### Export feature
+
+The `export` feature allows users to export the details of all patients stored to a CSV file. The CSV file is generated under `./data/PatientData.csv`.
+The sequence diagram below shows how the `export` command goes through the `logic` component.
+
+<puml src="diagrams/ExportSequenceDiagram.puml" width="550" />
+
+Step 1: When the user issues the command `export`, Logic is called upon to execute the command, it is passed to the `AddressBookParser` object which creates an `ExportCommand` object directly.
+
+Step 2: The `ExportCommandParser` class is not required in this case as the `export` command does not require any additional arguments from the user.
+
+Step 3: The `execute` method call retrieves the file path of the `addressbook.json` by calling the getAddressBookFilePath() method in `Model`. This file contains information of all patients added into the system previously.
+
+Step 4: The information in the JSON file retrieved is read by the `readJsonFile()` method in `ExportCommand` and returned as JSON trees.
+
+Step 5: By calling the `readPerson()` method in `ExportCommand` on the JSON trees, the persons array is obtained.
+
+Step 6: A csv file named `PatientData.csv` is created under the `data` directory by using the `createCsvDirectory()` method in `ExportCommand`.
+
+Step 7: The CSV schema is built based on the fields of the persons array using the `createCsvSchema()` method in `ExportCommand`. This method relies on the Jaskson Dataformat CSV module to build the CSV schema.
+
+Step 8: By calling the `writeToCsv`, the persons array is written to the CSV file according to the Schema created using Jackson's `CsvMapper`.
+
+#### Design Considerations
+The appointments associated with the patients stored in the address book is not exported to the csv file. This is intended as the `export` feature if expected to be executed only when the clinic wishes to transfer patient data to another clinic's system. As such, all the appointments associated with the patients will have to be rescheduled, rendering exporting previous associated appointments futile.
+
+The patients added into the address book are each labeled with a unique ID, which will also not be exported as they are not required for identification of the patients outside the system. It would be more effective to identify them by name and phone instead.
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
