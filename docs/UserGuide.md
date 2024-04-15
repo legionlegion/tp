@@ -275,7 +275,7 @@ You can import patient data from a csv file.
 Format: `import i/./data/FILENAME.csv`
 
 - The csv file should be formatted in a way that it only contains 4 columns with specific headings as shown above.
-- If you want to add multiple tags for the same person, please use ";" to separate the tags.
+- If you want to add multiple tags for the same patient, please use ";" to separate the tags.
 - Please save your patient data file under the `data` directory created when you launch RapidTracer in an empty file.
 - Enter the command stated above with "FILENAME" replaced by the name of csv file you have, e.g. `import i/.data/sample.csv`:
   ![img_5.png](img_5.png)
