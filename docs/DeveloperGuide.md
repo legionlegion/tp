@@ -484,7 +484,7 @@ As Rapid Tracer is meant to be single-user, the System and Actor for all use cas
 
 **MSS**
 1. Actor requests trace a specific appointment in the list of appointments currently displayed.
-2. System lists all appointments and their contacts that are overlapping within 5mins with the specific appointment.
+2. System lists all appointments and their contacts that are overlapping with the specific appointment.
 3. Use case ends.
 
 **Extensions**
