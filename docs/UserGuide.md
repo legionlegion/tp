@@ -188,12 +188,13 @@ Format: `listappt`
 
 Performs contact tracing on the selected appointment.
 This shows a list of appointments that overlap with the selected appointment.
-Any appointments that are within 5min before the start time and 5min after the end time are also considered overlapping.
 This shows a list of patients that attended those appointments.
 
 Format: `trace APPT_INDEX`
 
 - Traces the appointment at the specified `APPT_INDEX`.
+- 2 Appointments are also considered overlapping if one appointment start at the same time
+  as the other one ends.
 
 <img src="images/userguide/trace.png" style="width: 100%;">
 <p></p>
@@ -366,6 +367,6 @@ Trace patients | `trace PATIENT_INDEX` | `trace 1`
 Editing patient | `edit PATIENT_INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [t/TAG]` | `edit 1 n/Seah Min Rei`
 Editing appointment | `editappt APPPT_INDEX d/DATE_TIME` | `editappt 1 d/30/12/2024 8am-9am`
 Import patient records | `import i/./data/FILENAME.csv` | `import i/.data/sample.csv`
-Export patient records | `export` | 
+Export patient records | `export` |
 Help | `help` |
 Exit application | `exit` |

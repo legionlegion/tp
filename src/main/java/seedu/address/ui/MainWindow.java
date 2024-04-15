@@ -155,8 +155,8 @@ public class MainWindow extends UiPart<Stage> {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
-            if (helpWindow.isIconified()) {  // Check if the window is minimized
-                helpWindow.setIconified(false);  // De-minimize the window
+            if (helpWindow.isIconified()) { //Check if the window is minimized
+                helpWindow.setIconified(false); // De-minimize the window
             }
             helpWindow.close();
             helpWindow.show();
