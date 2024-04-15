@@ -104,7 +104,7 @@ You can schedule appointments for existing patients using the `addappt` command.
   - `tdy 10am-2pm` (this will create an appointment from 10am to 2pm with today's date)
 
 <box type="info" seamless>
-  <b>Remark:</b> The <code>addappt</code> command allows the addition of appointments with date/time in the past. This functionality allows you to add an appointment for record purposes if you forget to add the appointment when the patient visits the clinic. 
+  <b>Remark:</b> The <code>addappt</code> command allows the addition of appointments with date/time in the past. This functionality allows you to add an appointment for record purposes if you forget to add the appointment when the patient visits the clinic.
 </box>
 
 <h4 id="add-with-appt" style="color: #7393B3">
@@ -196,7 +196,7 @@ Shows a list of all patients in RapidTracer.
 
 Shows a list of all appointments in RapidTracer.
 
-<b>Format:</b> `listappt`
+<b>Format:</b> `listappt`<br />
 <b>Example(s):</b> `listappt`<br />
 <b>Result of `listappt`:</b>
 
