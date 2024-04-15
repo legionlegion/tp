@@ -38,6 +38,24 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
+     * Checks if the HelpWindow is iconified (minimized).
+     * 
+     * @return true if the window is minimized, false otherwise.
+     */
+    public boolean isIconified() {
+        return getRoot().isIconified();
+    }
+
+    /**
+     * Sets the iconified state of the HelpWindow.
+     * 
+     * @param iconified true to minimize the window, false to de-iconify it.
+     */
+    public void setIconified(boolean iconified) {
+        getRoot().setIconified(iconified);
+    }
+
+    /**
      * Creates a new HelpWindow.
      */
     public HelpWindow() {
@@ -46,21 +64,24 @@ public class HelpWindow extends UiPart<Stage> {
 
     /**
      * Shows the help window.
+     * 
      * @throws IllegalStateException
-     *     <ul>
-     *         <li>
-     *             if this method is called on a thread other than the JavaFX Application Thread.
-     *         </li>
-     *         <li>
-     *             if this method is called during animation or layout processing.
-     *         </li>
-     *         <li>
-     *             if this method is called on the primary stage.
-     *         </li>
-     *         <li>
-     *             if {@code dialogStage} is already showing.
-     *         </li>
-     *     </ul>
+     *                               <ul>
+     *                               <li>
+     *                               if this method is called on a thread other than
+     *                               the JavaFX Application Thread.
+     *                               </li>
+     *                               <li>
+     *                               if this method is called during animation or
+     *                               layout processing.
+     *                               </li>
+     *                               <li>
+     *                               if this method is called on the primary stage.
+     *                               </li>
+     *                               <li>
+     *                               if {@code dialogStage} is already showing.
+     *                               </li>
+     *                               </ul>
      */
     public void show() {
         logger.fine("Showing help page about the application.");
