@@ -188,12 +188,13 @@ Format: `listappt`
 
 Performs contact tracing on the selected appointment.
 This shows a list of appointments that overlap with the selected appointment.
-Any appointments that are within 5min before the start time and 5min after the end time are also considered overlapping.
 This shows a list of patients that attended those appointments.
 
 Format: `trace APPT_INDEX`
 
 - Traces the appointment at the specified `APPT_INDEX`.
+- 2 Appointments are also considered overlapping if one appointment start at the same time
+  as the other one ends.
 
 <img src="images/userguide/trace.png" style="width: 100%;">
 <p></p>
