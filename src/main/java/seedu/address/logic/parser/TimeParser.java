@@ -29,8 +29,9 @@ public class TimeParser {
     private static final Pattern TODAY_APPOINTMENT_TIME = Pattern.compile(TODAY + " " + HOUR_WINDOW);
     private static final String MESSAGE_USAGE = "Use dd/MM/yyyy [x]am-[y]pm";
     private static final String EMPTY_DATE_MESSAGE = "Please fill in a date!";
-    public static final String MESSAGE_END_BEFORE_START = "End time must be strictly after start time!";
-    public static final String INVALID_DATE = "Please provide a valid date! Appointments can be between 6 Feb 1819 and 1 Jan 2101";
+    private static final String MESSAGE_END_BEFORE_START = "End time must be strictly after start time!";
+    private static final String INVALID_DATE = "Please provide a valid date! "
+        + "Appointments can be between 6 Feb 1819 and 1 Jan 2101";
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
