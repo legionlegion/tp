@@ -92,7 +92,7 @@ public class EditAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 
-        if (model.hasOverlapAppointment(editedAppointment)) {
+        if (model.hasOverlapAppointmentWithout(editedAppointment, appointmentToEdit)) {
             throw new CommandException(String.format(MESSAGE_OVERLAP_APPOINTMENT, personName));
         }
 

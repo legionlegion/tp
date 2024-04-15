@@ -109,6 +109,12 @@ public interface Model {
     boolean hasOverlapAppointment(Appointment appointment);
 
     /**
+     * Returns true if an appointment with the same person and overlap timing as {@code appointment}
+     * exists in the address book without a specified appointment
+     */
+    boolean hasOverlapAppointmentWithout(Appointment appointment, Appointment appointmentWithout);
+
+    /**
      * Deletes the given appointment.
      * The appointment must exist in the address book.
      */

@@ -220,6 +220,11 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public boolean hasOverlapAppointmentWithout(Appointment appointment, Appointment appointmentWithout) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteAppointment(Appointment target) {
             throw new AssertionError("This method should not be called.");
         }

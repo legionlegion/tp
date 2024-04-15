@@ -201,6 +201,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if the internal list of appointments without the specified appointment contains any appointments
+     * of the same person that overlaps with the specified appointment.
+     *
+     * @param appointment The appointment to check for existence.
+     * @param appointmentWithout The appointment to not check
+     * @return True if any overlapping appointment is found in the list, false otherwise.
+     * @throws NullPointerException if the given appointment is null.
+     */
+    public boolean hasOverlapAppointmentsWithout(Appointment appointment, Appointment appointmentWithout) {
+        requireNonNull(appointment);
+        requireNonNull(appointmentWithout);
+        return appointments.overlapWithout(appointment, appointmentWithout);
+    }
+
+    /**
      * Adds an appointment to the list of appointments.
      *
      * @param a The appointment to be added.
@@ -284,4 +299,5 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         return Objects.hash(persons, appointments);
     }
+
 }
