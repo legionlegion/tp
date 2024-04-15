@@ -15,6 +15,7 @@
 
 This project was adapted from [AB3](https://se-education.org/addressbook-level3/), the source code of which can be found [here](https://github.com/nus-cs2103-AY2324S2/tp).
 
+The OpenCSV library is used in `export` and `import` commands for features related to CSV files. 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**
@@ -166,29 +167,64 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=======
 ### Add Appointment feature
 
 #### Implementation
 
+This features adds a new appointment to the system. The sequence diagram below illustrates the interactions inside the logic component when the `addappt 1 d/today 9am-2pm` command is entered by the user.
 
+<puml src="diagrams/AddAppointmentSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `addappt 1 d/today 9am-2pm` Command" />
+
+**Note:** The lifeline for `AddAppointmentCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Step 1. The user enters `addappt 1 d/today 9am-2pm` into the program. The user input is routed through the `:LogicManager` to the `:AddressBookParser`.
+
+Step 2. The `:AddressBookParser` creates a new instance of `:AddAppointmentCommandParser` and calls `parse("1 d/today 9am-2pm")`.
+
+Step 3. The call to `:AddAppointmentCommandParser#parse` utilizes two helper classes `ParserUtil` and `TimeParser` to parse the patient index and the appointment time respectively.
+
+Step 4. The result of the `:AddAppointmentCommandParser#parse` function is a `:AddAppointmentCommand` object. This object is returned back to the `:LogicManager` which runs `:AddAppointmentCommand#execute`.
+
+Step 5. This execution creates a new `Appointment` object and adds it the `:Model` via `addAppointment(appointmentToAdd)`.
+
+Step 6. The result of the `:AddAppointmentCommand#execute` function is a `:CommandResult` object. This object contains directives for the UI for response handling.
 
 #### Design Considerations
 
+The creation of an `Appointment` requires a parent `Person` to be associated with it. In line with the Separation of Concerns (SoC) principle, the two objects are decoupled, and the `Appointment` object is associated with its `Person` solely through an identifier (id).
 
-### Trace feature
+This design choice allows for reduced coupling between the objects, which simplifies both development and maintenance by minimizing the impact of changes in the `Person` object on the `Appointment` management system. Furthermore, it facilitates easier testing and enhances modularity, allowing each component to be developed, tested, and updated independently. This approach also improves scalability and performance, as the system uses lightweight references rather than direct object dependencies, which is particularly advantageous in this system where the entirety of our "database" is stored *in-memory*.
 
-#### Implementation
-
-#### Design Considerations
-
+However, this decoupling necessitates careful handling of data consistency and synchronization, ensuring that changes in the `Person` data are accurately reflected in related `Appointments`, and vice-versa, to maintain system integrity. This is facilitated through the use of `Map<UUID, Person>` and `Map<UUID, Appointment>`, which serve as repositories for storing and retrieving person and appointment objects through their identifiers. Hence, enabling efficient CRUD operations for managing the lifecycles of each object within the system.
 
 ### Export feature
 
-#### Implementation
+The `export` feature allows users to export the details of all patients stored to a CSV file. The CSV file is generated under `./data/PatientData.csv`.
+The sequence diagram below shows how the `export` command goes through the `logic` component.
+
+<puml src="diagrams/ExportSequenceDiagram.puml" width="550" />
+
+Step 1: When the user issues the command `export`, Logic is called upon to execute the command, it is passed to the `AddressBookParser` object which creates an `ExportCommand` object directly.
+
+Step 2: The `ExportCommandParser` class is not required in this case as the `export` command does not require any additional arguments from the user.
+
+Step 3: The `execute` method call retrieves the file path of the `addressbook.json` by calling the getAddressBookFilePath() method in `Model`. This file contains information of all patients added into the system previously.
+
+Step 4: The information in the JSON file retrieved is read by the `readJsonFile()` method in `ExportCommand` and returned as JSON trees.
+
+Step 5: By calling the `readPerson()` method in `ExportCommand` on the JSON trees, the persons array is obtained.
+
+Step 6: A csv file named `PatientData.csv` is created under the `data` directory by using the `createCsvDirectory()` method in `ExportCommand`.
+
+Step 7: The CSV schema is built based on the fields of the persons array using the `createCsvSchema()` method in `ExportCommand`. This method relies on the Jaskson Dataformat CSV module to build the CSV schema.
+
+Step 8: By calling the `writeToCsv`, the persons array is written to the CSV file according to the Schema created using Jackson's `CsvMapper`.
 
 #### Design Considerations
+The appointments associated with the patients stored in the address book is not exported to the csv file. This is intended as the `export` feature if expected to be executed only when the clinic wishes to transfer patient data to another clinic's system. As such, all the appointments associated with the patients will have to be rescheduled, rendering exporting previous associated appointments futile.
 
-
+The patients added into the address book are each labeled with a unique ID, which will also not be exported as they are not required for identification of the patients outside the system. It would be more effective to identify them by name and phone instead.
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -279,13 +315,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   itself.
   * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 
 --------------------------------------------------------------------------------------------------------------------
 

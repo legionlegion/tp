@@ -251,8 +251,9 @@ An appointment can be rescheduled with the `editappt` command to change the date
 
 <b>Format:</b> `editappt APPT_INDEX d/DATE_TIME`<br />
 <b>Example(s):</b> `editappt 1 d/tdy 5pm-6pm`<br />
-<b>Result of `editappt 1 a/NUS UTown`:</b> UPDATE THIS
+<b>Result of `editappt 1 d/tdy 5pm-6pm`:</b>
 
+![alt text](image-19.png)
 - Edits the appointment's details at the specified `APPT_INDEX`.
 - Only one `APPT_INDEX` can be specified at a time.
 - Existing values will be updated to input values.
@@ -270,8 +271,8 @@ An appointment can be rescheduled with the `editappt` command to change the date
 In the event that a patient requests for their data to be deleted, you can use the `delete` command to remove their patient information.
 
 <b>Format:</b> `delete PATIENT_INDEX` <br />
-<b>Example(s):</b> `edit 1 p/12345678`, `edit 1 a/NUS UTown` <br />
-<b>Result of `edit 1 a/NUS UTown`:</b>
+<b>Example(s):</b> `delete 2` <br />
+<b>Result of `delete 2`:</b>
 
 - Deletes the patient at the specified `PATIENT_INDEX`.
 - Only one `PATIENT_INDEX` can be specified at a time.
@@ -305,11 +306,10 @@ You can import patient data from a csv file.
 <b>Example(s):</b> `import i/./data/FILENAME.csv` <br />
 <b>Result of `import i/./data/FILENAME.csv`:</b>
 
-- The csv file should be formatted in a way that it only contains 4 columns with specific headings as shown above.
-- If you want to add multiple tags for the same patient, please use ";" to separate the tags.
+- The csv file should be formatted in a way that it only contains 4 columns with specific headings as shown above. If the patient does not have an address or a tag, please insert "NIL" before importing.
+- If you want to add multiple tags for the same patient, please use `;` to separate the tags.
 - Please save your patient data file under the `data` directory created when you launch RapidTracer in an empty file.
-- Enter the command stated above with "FILENAME" replaced by the name of csv file you have, e.g. `import i/.data/sample.csv`:
-  ![img_5.png](img_5.png)
+- Enter the command stated above with "FILENAME" replaced by the name of csv file you have, e.g. `import i/./data/sample.csv`.
 
 <box type="info" seamless>
   <b>Remark:</b> You should avoid empty lines in the csv file you want to import.
@@ -345,8 +345,6 @@ You can export existing patient data to a csv file stored in a specific location
 <b>Format:</b> `clear` <br />
 <b>Example(s):</b> `clear` <br />
 <b>Result of `clear`:</b>
-
-INSERT SS
 
 <h3 id="general-help" style="color: #088F8F">
   8. General help
@@ -402,19 +400,19 @@ To properly exit RapidTracer, click the `File` option in the top left corner and
 
 ## Command summary
 
-Action     | Format | Examples
------------|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------
-Add patient | `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG] [d/DATE_TIME]` | `add n/Min Rei p/86615076`,<br> `add n/Min Rei p/86615076 a/UTown RC4 t/CEO`,<br> `add n/Min Rei p/86615076 d/27/03/2024 2pm-3pm`
-Add appointment | `addappt PATIENT_INDEX d/DATE_TIME` | `addappt 1 d/27/03/2024 9am-10am`,<br> `addappt 1 d/today 9am-10am`,<br> `addappt 1 d/tdy 9am-10am`
-Find patients | `find KEYWORD [MORE_KEYWORDS]` | `find Min Rei`,<br> `find rc4`
-Find appointments | `findappt KEYWORD [MORE_KEYWORDS]` | `findappt Min Rei`
-List all patients | `list` |
-List all appointments | `listappt` |
-Trace patients | `trace PATIENT_INDEX` | `trace 1`
-Editing patient | `edit PATIENT_INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [t/TAG]` | `edit 1 n/Seah Min Rei`
-Editing appointment | `editappt APPPT_INDEX d/DATE_TIME` | `editappt 1 d/30/12/2024 8am-9am`
-Import patient records | `import i/./data/FILENAME.csv` | `import i/.data/sample.csv`
-Export patient records | `export` |
-Help | `help` |
-Exit application | `exit` |
-Clear records | `clear` |
+| Action                 | Format                                                             | Examples                                                                                                                          |
+|------------------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| Add patient            | `add n/NAME p/PHONE_NUMBER [a/ADDRESS] [t/TAG] [d/DATE_TIME]`      | `add n/Min Rei p/86615076`,<br> `add n/Min Rei p/86615076 a/UTown RC4 t/CEO`,<br> `add n/Min Rei p/86615076 d/27/03/2024 2pm-3pm` |
+| Add appointment        | `addappt PATIENT_INDEX d/DATE_TIME`                                | `addappt 1 d/27/03/2024 9am-10am`,<br> `addappt 1 d/today 9am-10am`,<br> `addappt 1 d/tdy 9am-10am`                               |
+| Find patients          | `find KEYWORD [MORE_KEYWORDS]`                                     | `find Min Rei`,<br> `find rc4`                                                                                                    |
+| Find appointments      | `findappt KEYWORD [MORE_KEYWORDS]`                                 | `findappt Min Rei`                                                                                                                |
+| List all patients      | `list`                                                             |                                                                                                                                   |
+| List all appointments  | `listappt`                                                         |                                                                                                                                   |
+| Trace patients         | `trace PATIENT_INDEX`                                              | `trace 1`                                                                                                                         |
+| Editing patient        | `edit PATIENT_INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [t/TAG]` | `edit 1 n/Seah Min Rei`                                                                                                           |
+| Editing appointment    | `editappt APPPT_INDEX d/DATE_TIME`                                 | `editappt 1 d/30/12/2024 8am-9am`                                                                                                 |
+| Import patient records | `import i/./data/FILENAME.csv`                                     | `import i/./data/sample.csv`                                                                                                      |
+| Export patient records | `export`                                                           |                                                                                                                                   |
+| Help                   | `help`                                                             |                                                                                                                                   |
+| Clear data       | `clear`                                                             |                                                                                                                                  |
+| Exit application       | `exit`                                                             |                                                                                                                                   |
