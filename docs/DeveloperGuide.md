@@ -207,11 +207,11 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th patient in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
@@ -221,7 +221,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
@@ -277,7 +277,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
@@ -429,8 +429,8 @@ As Rapid Tracer is meant to be single-user, the System and Actor for all use cas
 **Use Case: C04 - Delete a Contact**
 
 **MSS**
-1. Actor requests to delete a specific person in the list of contacts currently displayed.
-2. System deletes the person.
+1. Actor requests to delete a specific patient in the list of contacts currently displayed.
+2. System deletes the patient.
 3. Use case ends.
 
 **Extensions**
@@ -515,7 +515,7 @@ As Rapid Tracer is meant to be single-user, the System and Actor for all use cas
 
 **MSS**
 1. Actor requests trace a specific appointment in the list of appointments currently displayed.
-2. System lists all appointments and their contacts that are overlapping within 5mins with the specific appointment.
+2. System lists all appointments and their contacts that are overlapping with the specific appointment.
 3. Use case ends.
 
 **Extensions**
@@ -570,29 +570,43 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting a patient
 
-1. Deleting a person while all persons are being shown
+1. Deleting a patient while all patients are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
 
    1. Test case: `delete 1`<br>
       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Prerequisites: Ensure that the `[JAR directory]/data/addressbook.json` file is generated by running the JAR file at least once, and closing it.
 
-1. _{ more test cases …​ }_
+   2. Test case: Ensure the RapidTracer app is not running and the current `addressbook.json` file is valid and contains at least 1 patient.
+   ![alt text](image.png)  
+
+        Expected: Opening the RapidTracer app will show a list of the current patients and appointments (if any).
+    ![alt text](image-2.png)  
+    <br>
+    3. Test case: Make an invalid change to the `addressbook.json` file, by deleting the opening `{` of any patient.
+    ![alt text](image-3.png)  
+    
+        Expected: Opening the RapidTracer app will show 2 empty lists
+    ![alt text](image-4.png)  
+    <br>
+    4. Test case: Make a valid change to the `addressbook.json` file, by changing name of any patient. E.g. "Alex Yeoh" -> "Alex".  
+    ![alt text](image-5.png)  
+
+        Expected: Opening the RapidTracer app will show the change.
+    ![alt text](image-6.png)  
