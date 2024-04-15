@@ -21,7 +21,7 @@ public class AppointmentTimeOverlapPredicate implements Predicate<Appointment> {
             return false;
         }
 
-        return targetTime.getStartTime().minusMinutes(5).isBefore(appointmentTime.getEndTime())
-            && appointmentTime.getStartTime().isBefore(targetTime.getEndTime().plusMinutes(5));
+        return !targetTime.getStartTime().isAfter(appointmentTime.getEndTime())
+            && !appointmentTime.getStartTime().isAfter(targetTime.getEndTime());
     }
 }
