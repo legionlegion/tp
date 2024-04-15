@@ -51,7 +51,7 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         try {
             appointmentTime = TimeParser.parse(argMultimap.getValue(PREFIX_DATE).get());
         } catch (ParseException pe) {
-            throw new ParseException(AddAppointmentCommand.MESSAGE_USAGE);
+            throw pe;
         }
 
         return new AddAppointmentCommand(index, appointmentTime);
